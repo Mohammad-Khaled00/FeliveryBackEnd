@@ -13,11 +13,11 @@ namespace FeliveryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantsController : ControllerBase
+    public class RestaurantController : ControllerBase
     {
         private readonly IWebHostEnvironment _environment;
         public IRepository<Restaurant> RestaurantRepo { get; set; }
-        public RestaurantsController(IRepository<Restaurant> restaurantRepo, IWebHostEnvironment environment)
+        public RestaurantController(IRepository<Restaurant> restaurantRepo, IWebHostEnvironment environment)
         {
             RestaurantRepo = restaurantRepo;
             _environment = environment;
