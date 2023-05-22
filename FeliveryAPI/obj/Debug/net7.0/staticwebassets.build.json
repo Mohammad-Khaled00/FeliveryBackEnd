@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gZvCmAsEsD6OHM9mpCdfQFkAufjzxeSQCo6vmmuEiws=",
+  "Hash": "afnpBl/62l33Ph9nSrnEVEW7EVIRqKsknNqquWgcWuk=",
   "Source": "FeliveryAPI",
   "BasePath": "_content/FeliveryAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FeliveryAPI\\wwwroot",
       "Source": "FeliveryAPI",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Product\\224375803_354796012908566_3791660853337588771_n.jpg\\image.png",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\Uploads\\Product\\224375803_354796012908566_3791660853337588771_n.jpg\\image.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Product/224375803_354796012908566_3791660853337588771_n.jpg/image.png",
       "AssetKind": "All",
@@ -34,10 +34,10 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\Product\\224375803_354796012908566_3791660853337588771_n.jpg\\image.png"
     },
     {
-      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Product\\Dual-Monitor-Wallpaper-36.jpg\\image.png",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\Uploads\\Product\\Dual-Monitor-Wallpaper-36.jpg\\image.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Product/Dual-Monitor-Wallpaper-36.jpg/image.png",
       "AssetKind": "All",
@@ -51,10 +51,10 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\Product\\Dual-Monitor-Wallpaper-36.jpg\\image.png"
     },
     {
-      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Product\\refraction-black-hole-astronaut-planet-earth-outer-space-3840x1080-7559.jpg\\image.png",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\Uploads\\Product\\refraction-black-hole-astronaut-planet-earth-outer-space-3840x1080-7559.jpg\\image.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Product/refraction-black-hole-astronaut-planet-earth-outer-space-3840x1080-7559.jpg/image.png",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\Product\\refraction-black-hole-astronaut-planet-earth-outer-space-3840x1080-7559.jpg\\image.png"
     },
     {
-      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Product\\tron_homemode.jpg\\image.png",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\Uploads\\Product\\tron_homemode.jpg\\image.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Product/tron_homemode.jpg/image.png",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\Uploads\\Product\\tron_homemode.jpg\\image.png"
     },
     {
-      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Product\\wallpaperflare.com_wallpaper (1).jpg\\image.png",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\Uploads\\Product\\wallpaperflare.com_wallpaper (1).jpg\\image.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Product/wallpaperflare.com_wallpaper (1).jpg/image.png",
       "AssetKind": "All",

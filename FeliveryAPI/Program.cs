@@ -19,9 +19,6 @@ builder.Services.AddDbContextFactory<ElDbContext>(
       );
 builder.Services.AddScoped<IRepository<Restaurant>, RestaurantRepoService>();
 builder.Services.AddScoped<IRepository<MenuItem>, MenuItemRepoService>();
-builder.Services.AddScoped<IRepository<Category>, CategoryRepoService>();
-builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
