@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7hz/nzOo3zTRRxHKIVK78NvKJnwAAH3OUBGqsnRh6QVr1qE47dN8IYvbcD5khHWvMPPkVPF1SLMjVJTsE/4cTg==",
+  "dgSpecHash": "hXkzyeT6Gi0ylg7x06/SDIqDQblSoaztvkVo7OszXYbEhnU9NPGfLKyyCu65tumwXdXFRbGgVDMWXQdXwO5NXA==",
   "success": true,
-  "projectFilePath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\Felivery\\FeliveryAPI\\FeliveryAPI.csproj",
+  "projectFilePath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackGit\\FeliveryAPI\\FeliveryAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dell\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
