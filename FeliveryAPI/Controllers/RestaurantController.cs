@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
+using Feliv_auth.Models;
 
 namespace FeliveryAPI.Controllers
 {
@@ -16,10 +17,10 @@ namespace FeliveryAPI.Controllers
     public class RestaurantController : ControllerBase
     {
         private readonly IWebHostEnvironment _environment;
-        public IRepository<Restaurant> RestaurantRepo { get; set; }
-        public RestaurantController(IRepository<Restaurant> restaurantRepo, IWebHostEnvironment environment)
+        public IParentStoreService ParentStoretRepo { get; set; }
+        public RestaurantController(IParentStoreService parentStoretRepo, IWebHostEnvironment environment)
         {
-            RestaurantRepo = restaurantRepo;
+            ParentStoretRepo = parentStoretRepo;
             _environment = environment;
         }
 
@@ -28,24 +29,24 @@ namespace FeliveryAPI.Controllers
         public ActionResult<List<Restaurant>> getRestaurants()
         {
 
-            return RestaurantRepo.GetAll();
+            return ParentStoretRepo.GetAll();
         }
         [HttpGet("{id}")]
         public ActionResult<Restaurant> getById(int id)
         {
-            return RestaurantRepo.GetDetails(id);
+            return ParentStoretRepo.GetDetails(id);
         }
 
         [HttpDelete("{id}")]
         public ActionResult delete(int id)
         {
-            Restaurant restaurant = RestaurantRepo.GetDetails(id);
+            Restaurant restaurant = ParentStoretRepo.GetDetails(id);
 
             if (restaurant == null)
             {
                 return NotFound();
             }
-            RestaurantRepo.Delete(id);
+            ParentStoretRepo.Delete(id);
             return Ok(restaurant);
         }
         [HttpPut]
@@ -53,7 +54,7 @@ namespace FeliveryAPI.Controllers
         {
             if (rstrnt != null && rstrnt.Id != 0)
             {
-                RestaurantRepo.Update(rstrnt);
+                ParentStoretRepo.Update(rstrnt);
                 return Ok(rstrnt);
             }
             return NotFound();
@@ -66,7 +67,7 @@ namespace FeliveryAPI.Controllers
             {
                 try
                 {
-                    RestaurantRepo.Insert(restaurant);
+                    ParentStoretRepo.Insert(restaurant);
                     return Created("url", restaurant);
                     // return 201 & Url is the place where you added the object
                 }
@@ -115,6 +116,48 @@ namespace FeliveryAPI.Controllers
         {
             return this._environment.WebRootPath+ "\\Uploads\\Product\\" + ProductCode;
         }
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
+            var result = await ParentStoretRepo.RegisterAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+            //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
+
+        }
+
+        [HttpPost("token")]
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await ParentStoretRepo.GetTokenAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        [HttpPost("addrole")]
+        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await ParentStoretRepo.AddRoleAsync(model);
+
+            if (!string.IsNullOrEmpty(result))
+                return BadRequest(result);
+
+            return Ok(model);
+        }
     }
 }
