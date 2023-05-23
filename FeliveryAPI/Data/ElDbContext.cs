@@ -1,6 +1,6 @@
 ﻿using FeliveryAPI.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 namespace FeliveryAPI.Data
 {
     public class ElDbContext : DbContext

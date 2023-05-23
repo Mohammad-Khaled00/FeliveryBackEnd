@@ -14,7 +14,7 @@ namespace FeliveryAPI.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int offerPrice { get; set; }
-        public byte[] offerImg { get; set; }
+        public string offerImg { get; set; }
         [NotMapped]
         public virtual List<MenuItem>? MenuitemOffers { get; set; }
     }

@@ -13,10 +13,10 @@ namespace FeliveryAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MenuItemsController : ControllerBase
+    public class MenuItemController : ControllerBase
     {
         public IRepository<MenuItem> MenuItemRepo { get; set; }
-        public MenuItemsController(IRepository<MenuItem> menuItemRepo)
+        public MenuItemController(IRepository<MenuItem> menuItemRepo)
         {
             MenuItemRepo = menuItemRepo;
         }
