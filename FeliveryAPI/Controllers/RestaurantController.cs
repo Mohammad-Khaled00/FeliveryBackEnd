@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
-using Feliv_auth.Models;
+
 
 namespace FeliveryAPI.Controllers
 {
@@ -60,24 +60,7 @@ namespace FeliveryAPI.Controllers
             return NotFound();
         }
 
-        [HttpPost]
-        public ActionResult Post(Restaurant restaurant)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ParentStoretRepo.Insert(restaurant);
-                    return Created("url", restaurant);
-                    // return 201 & Url is the place where you added the object
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message); // Return 400!
-                }
-            }
-            return BadRequest();
-        }
+    
         //Upload Images
         [HttpPost("uploadImage")]
        
@@ -116,6 +99,26 @@ namespace FeliveryAPI.Controllers
         {
             return this._environment.WebRootPath+ "\\Uploads\\Product\\" + ProductCode;
         }
+
+        [HttpPost]
+        public ActionResult Post(Restaurant restaurant)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    ParentStoretRepo.Insert(restaurant);
+                    return Created("url", restaurant);
+                    // return 201 & Url is the place where you added the object
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message); // Return 400!
+                }
+            }
+            return BadRequest();
+        }
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
         {
@@ -123,6 +126,7 @@ namespace FeliveryAPI.Controllers
                 return BadRequest(ModelState);
 
             var result = await ParentStoretRepo.RegisterAsync(model);
+
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);

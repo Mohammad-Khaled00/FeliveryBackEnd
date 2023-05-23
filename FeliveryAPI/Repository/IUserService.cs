@@ -1,6 +1,6 @@
 ﻿using Feliv_auth.Models;
 
-namespace Feliv_auth.Services
+namespace FeliveryAPI.Models
 {
     public interface IUserService
     {

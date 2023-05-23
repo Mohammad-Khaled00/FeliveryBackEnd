@@ -1,25 +1,31 @@
 ﻿using Feliv_auth.Models;
+using FeliveryAPI.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Feliv_auth.Services
+namespace FeliveryAPI.Models
 {
     public class userService : IUserService
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _IConfiguration;
+     
 
         public userService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration _IConfig)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _IConfiguration = _IConfig;
+
         }
+
+
 
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
