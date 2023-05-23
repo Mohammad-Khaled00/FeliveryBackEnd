@@ -1,5 +1,5 @@
 using Feliv_auth.Models;
-using Feliv_auth.Services;
+using FeliveryAPI.Models;
 using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
@@ -24,13 +24,13 @@ builder.Services.AddDbContextFactory<ElDbContext>(
           }
       );
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
-builder.Services.AddScoped<IRepository<Restaurant>, RestaurantRepoService>();
+//builder.Services.AddScoped<IRepository<Restaurant>, RestaurantRepoService>();
 builder.Services.AddScoped<IRepository<MenuItem>, MenuItemRepoService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepoService>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
-builder.Services.AddScoped<IUserService,userService>();
-builder.Services.AddScoped<IParentStoreService>();
+//builder.Services.AddScoped<IUserService,userService>();
+builder.Services.AddScoped<IParentStoreService,ParentStoreService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {
@@ -58,8 +58,9 @@ if (app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllers();
 

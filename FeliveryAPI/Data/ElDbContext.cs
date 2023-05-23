@@ -1,14 +1,16 @@
 ﻿using FeliveryAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
+
 namespace FeliveryAPI.Data
 {
-    public class ElDbContext : DbContext
+    public class ElDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ElDbContext(DbContextOptions<ElDbContext> options) : base(options)
-        {
-        }
-              public DbSet<Restaurant> Restaurants { get; set; }
+
+        public ElDbContext(DbContextOptions<ElDbContext> options) : base(options) { }
+
+                public DbSet<Restaurant> Restaurants { get; set; }
               public DbSet<Category> Categories { get; set; }
               public DbSet<MenuItem> MenuItems { get; set; }
               public DbSet<Order> Orders { get; set; }

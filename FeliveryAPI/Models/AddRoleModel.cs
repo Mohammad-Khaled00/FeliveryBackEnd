@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Feliv_auth.Models
+namespace FeliveryAPI.Models
 {
     public class AddRoleModel
     {
