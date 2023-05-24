@@ -30,6 +30,15 @@ builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
 
+//CORS policy
+builder.Services.AddCors((setup) =>
+{
+    setup.AddPolicy("default", (options) =>
+    {
+        options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    });
+});
+
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {
     option.RequireHttpsMetadata = false;
@@ -54,6 +63,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles();
+
+//CORS policy
+app.UseCors("default");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

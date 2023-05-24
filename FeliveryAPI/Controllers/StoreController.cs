@@ -109,7 +109,7 @@ namespace FeliveryAPI.Controllers
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
-            return Ok();
+            return Ok(result);
             //return Ok(result);
             //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
         }
