@@ -14,11 +14,11 @@ namespace FeliveryAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RestaurantController : ControllerBase
+    public class StoreController : ControllerBase
     {
         private readonly IWebHostEnvironment _environment;
-        public IParentStoreService ParentStoretRepo { get; set; }
-        public RestaurantController(IParentStoreService parentStoretRepo, IWebHostEnvironment environment)
+        public IStoreService ParentStoretRepo { get; set; }
+        public StoreController(IStoreService parentStoretRepo, IWebHostEnvironment environment)
         {
             ParentStoretRepo = parentStoretRepo;
             _environment = environment;
@@ -26,19 +26,19 @@ namespace FeliveryAPI.Controllers
 
 
         [HttpGet]
-        public ActionResult<List<Restaurant>> getRestaurants()
+        public ActionResult<List<Restaurant>> GetRestaurants()
         {
 
             return ParentStoretRepo.GetAll();
         }
         [HttpGet("{id}")]
-        public ActionResult<Restaurant> getById(int id)
+        public ActionResult<Restaurant> GetById(int id)
         {
             return ParentStoretRepo.GetDetails(id);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         {
             Restaurant restaurant = ParentStoretRepo.GetDetails(id);
 
@@ -50,12 +50,12 @@ namespace FeliveryAPI.Controllers
             return Ok(restaurant);
         }
         [HttpPut]
-        public ActionResult put(int id, Restaurant rstrnt)
+        public ActionResult Put(Restaurant restaurant)
         {
-            if (rstrnt != null && rstrnt.Id != 0)
+            if (restaurant != null && restaurant.Id != 0)
             {
-                ParentStoretRepo.Update(rstrnt);
-                return Ok(rstrnt);
+                ParentStoretRepo.Update(restaurant);
+                return Ok(restaurant);
             }
             return NotFound();
         }
@@ -64,7 +64,7 @@ namespace FeliveryAPI.Controllers
         //Upload Images
         [HttpPost("uploadImage")]
        
-        public async Task<ActionResult> uploadImage(IFormFileCollection uploadFiles)
+        public async Task<ActionResult> UploadImage(IFormFileCollection uploadFiles)
         {
             bool Results =false;
             try
@@ -84,12 +84,10 @@ namespace FeliveryAPI.Controllers
                     {
                         System.IO.Directory.Delete(imagepath);
                     }
-                    using(FileStream stream = System.IO.File.Create(imagepath)) {
+                    using FileStream stream = System.IO.File.Create(imagepath);
                     await file.CopyToAsync(stream);
-                        Results = true;
-                    }
+                    Results = true;
                 }
-
             }
             catch (Exception ex) { }
             return Ok(Results);
@@ -100,7 +98,54 @@ namespace FeliveryAPI.Controllers
             return this._environment.WebRootPath+ "\\Uploads\\Product\\" + ProductCode;
         }
 
-        [HttpPost]
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registeration([FromBody] RegData Data)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            var result = await ParentStoretRepo.Register(Data);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok();
+            //return Ok(result);
+            //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
+        }
+
+
+        [HttpPost("token")]
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await ParentStoretRepo.GetTokenAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+        [HttpPost("addrole")]
+        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await ParentStoretRepo.AddRoleAsync(model);
+
+            if (!string.IsNullOrEmpty(result))
+                return BadRequest(result);
+
+            return Ok(model);
+        }
+    }
+}
+
+        /*[HttpPost]
         public ActionResult Post(Restaurant restaurant)
         {
             if (ModelState.IsValid)
@@ -134,34 +179,4 @@ namespace FeliveryAPI.Controllers
             return Ok(result);
             //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
 
-        }
-
-        [HttpPost("token")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await ParentStoretRepo.GetTokenAsync(model);
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
-
-            return Ok(result);
-        }
-
-        [HttpPost("addrole")]
-        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await ParentStoretRepo.AddRoleAsync(model);
-
-            if (!string.IsNullOrEmpty(result))
-                return BadRequest(result);
-
-            return Ok(model);
-        }
-    }
-}
+        }*/

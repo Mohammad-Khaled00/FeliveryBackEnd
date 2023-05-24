@@ -23,14 +23,12 @@ builder.Services.AddDbContextFactory<ElDbContext>(
               op.UseSqlServer(builder.Configuration.GetConnectionString("MyConn1"));
           }
       );
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
-//builder.Services.AddScoped<IRepository<Restaurant>, RestaurantRepoService>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
 builder.Services.AddScoped<IRepository<MenuItem>, MenuItemRepoService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepoService>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
-//builder.Services.AddScoped<IUserService,userService>();
-builder.Services.AddScoped<IParentStoreService,ParentStoreService>();
+builder.Services.AddScoped<IStoreService,StoreService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {

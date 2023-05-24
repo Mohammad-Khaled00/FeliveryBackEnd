@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FeliveryAPI.Data
 {
-    public class ElDbContext : IdentityDbContext<ApplicationUser>
+    public class ElDbContext : IdentityDbContext
     {
 
         public ElDbContext(DbContextOptions<ElDbContext> options) : base(options) { }
 
-                public DbSet<Restaurant> Restaurants { get; set; }
+              public DbSet<Restaurant> Restaurants { get; set; }
               public DbSet<Category> Categories { get; set; }
               public DbSet<MenuItem> MenuItems { get; set; }
               public DbSet<Order> Orders { get; set; }

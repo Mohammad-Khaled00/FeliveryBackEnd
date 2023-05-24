@@ -2,23 +2,28 @@
 using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Transactions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FeliveryAPI.Repository
 {
-    public class ParentStoreService :IParentStoreService
+    public class StoreService : IStoreService
     {
 
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _IConfiguration;
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public ParentStoreService(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public StoreService(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -27,7 +32,7 @@ namespace FeliveryAPI.Repository
         }
         public List<Restaurant> GetAll()
         {
-            List<Restaurant> RestaurantsList = new List<Restaurant>();
+            List<Restaurant> RestaurantsList = new();
 
             using (var customContext = Context.CreateDbContext())
             {
@@ -59,11 +64,9 @@ namespace FeliveryAPI.Repository
 
         public void Update(Restaurant restaurant)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.Restaurants.Update(restaurant);
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.Restaurants.Update(restaurant);
+            customContext.SaveChanges();
         }
         public void Delete(int id)
         {
@@ -82,14 +85,11 @@ namespace FeliveryAPI.Repository
             if (await _userManager.FindByNameAsync(model.Username) is not null)
                 return new AuthModel { Message = "Username is already registered!" };
 
-            var user = new ApplicationUser
+            var user = new IdentityUser
             {
                 UserName = model.Username,
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName
+                Email = model.Email
             };
-
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)
@@ -108,6 +108,7 @@ namespace FeliveryAPI.Repository
 
             return new AuthModel
             {
+                Id = user.Id,
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
@@ -156,7 +157,7 @@ namespace FeliveryAPI.Repository
             return result.Succeeded ? string.Empty : "Sonething went wrong";
         }
 
-        private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
+        private async Task<JwtSecurityToken> CreateJwtToken(IdentityUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
             var roles = await _userManager.GetRolesAsync(user);
@@ -191,5 +192,39 @@ namespace FeliveryAPI.Repository
 
             return jwtSecurityToken;
         }
+
+        public async Task<AuthModel> Register(RegData Data)
+        {
+            using TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled);
+            try
+            {
+                TransactionManager.ImplicitDistributedTransactions = true;
+                TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
+                //Insert(Data.restaurant);
+                //var result = RegisterAsync(Data.model);
+                //Task.WaitAll(result);
+                var res = await RegisterAsync(Data.model);
+                if (res.Message != null)
+                {
+                    throw new Exception("An error occurred.");
+                }
+                Data.restaurant.SecurityID = res.Id;
+                Insert(Data.restaurant);
+                transaction.Complete();
+                return new AuthModel{
+                    IsAuthenticated = true
+                };
+            }
+            catch (Exception ex)
+            {
+                transaction.Dispose();
+                return new AuthModel { Message = ex.Message };
+            }
+        }
+    }
+    public class RegData
+    {
+        public RegisterModel model { get; set; }
+        public Restaurant restaurant { get; set; }
     }
 }
