@@ -212,7 +212,7 @@ namespace FeliveryAPI.Repository
                 Insert(Data.restaurant);
                 transaction.Complete();
                 return new AuthModel{
-                    IsAuthenticated = true
+                    IsAuthenticated = true 
                 };
             }
             catch (Exception ex)
