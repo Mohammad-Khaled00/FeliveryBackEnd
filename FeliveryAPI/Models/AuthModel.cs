@@ -1,4 +1,4 @@
-﻿namespace Feliv_auth.Models
+﻿namespace FeliveryAPI.Models
 {
     public class AuthModel
     {

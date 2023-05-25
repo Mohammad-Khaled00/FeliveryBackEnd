@@ -1,7 +1,5 @@
-using Feliv_auth.Models;
 using FeliveryAPI.Models;
 using FeliveryAPI.Data;
-using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
