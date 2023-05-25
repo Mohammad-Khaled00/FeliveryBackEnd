@@ -109,13 +109,13 @@ namespace FeliveryAPI.Controllers
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
-            return Ok();
-            //return Ok(result);
+            return Ok(result);
+            //return Ok();
             //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
         }
 
 
-        [HttpPost("token")]
+        [HttpPost("Login")]
         public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
         {
             if (!ModelState.IsValid)

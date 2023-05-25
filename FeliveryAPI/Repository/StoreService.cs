@@ -1,5 +1,4 @@
-﻿using Feliv_auth.Models;
-using FeliveryAPI.Data;
+﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -55,11 +54,9 @@ namespace FeliveryAPI.Repository
 
         public void Insert(Restaurant restaurant)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.Restaurants.Add(restaurant);
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.Restaurants.Add(restaurant);
+            customContext.SaveChanges();
         }
 
         public void Update(Restaurant restaurant)
@@ -70,11 +67,9 @@ namespace FeliveryAPI.Repository
         }
         public void Delete(int id)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
+            customContext.SaveChanges();
         }
         //-------
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
@@ -102,7 +97,7 @@ namespace FeliveryAPI.Repository
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, "User");
+            await _userManager.AddToRoleAsync(user, "PendingStore");
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -112,7 +107,7 @@ namespace FeliveryAPI.Repository
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { "User" },
+                Roles = new List<string> { "PendingStore" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName
             };
@@ -133,6 +128,9 @@ namespace FeliveryAPI.Repository
             var jwtSecurityToken = await CreateJwtToken(user);
             var rolesList = await _userManager.GetRolesAsync(user);
 
+            using var customContext = Context.CreateDbContext();
+            var localID = customContext.Restaurants.Where(d => d.SecurityID == user.Id).Select(d => d.Id).First();
+            authModel.Id = $"{localID}";
             authModel.IsAuthenticated = true;
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             authModel.Email = user.Email;
@@ -151,6 +149,15 @@ namespace FeliveryAPI.Repository
 
             if (await _userManager.IsInRoleAsync(user, model.Role))
                 return "User already assigned to this role";
+
+            var AllRoles = new[] { "Admin", "ApprovedStore", "PendingStore", "Customer" };
+            var userRole = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in AllRoles)
+            {
+                if (userRole.Contains(role))
+                    await _userManager.RemoveFromRoleAsync(user, role);
+            }
 
             var result = await _userManager.AddToRoleAsync(user, model.Role);
 
@@ -212,7 +219,12 @@ namespace FeliveryAPI.Repository
                 Insert(Data.restaurant);
                 transaction.Complete();
                 return new AuthModel{
-                    IsAuthenticated = true 
+                    Username = res.Username,
+                    Email = res.Email,
+                    Roles = res.Roles,
+                    IsAuthenticated = res.IsAuthenticated,
+                    Token = res.Token,
+                    ExpiresOn = res.ExpiresOn
                 };
             }
             catch (Exception ex)

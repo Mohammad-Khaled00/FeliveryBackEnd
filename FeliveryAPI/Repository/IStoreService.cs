@@ -1,5 +1,4 @@
-﻿using Feliv_auth.Models;
-using FeliveryAPI.Models;
+﻿using FeliveryAPI.Models;
 
 namespace FeliveryAPI.Repository
 {

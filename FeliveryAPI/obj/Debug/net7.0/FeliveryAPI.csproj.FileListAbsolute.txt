@@ -843,3 +843,7 @@ C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\obj\Debug\net7.0\
 C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\obj\Debug\net7.0\FeliveryAPI.pdb
 C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\obj\Debug\net7.0\FeliveryAPI.genruntimeconfig.cache
 C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\obj\Debug\net7.0\ref\FeliveryAPI.dll
+C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\bin\Debug\net7.0\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\bin\Debug\net7.0\System.Net.Http.Formatting.dll
+C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\bin\Debug\net7.0\System.Web.Http.dll
+C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAPI\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
