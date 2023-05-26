@@ -1,7 +1,5 @@
-using Feliv_auth.Models;
 using FeliveryAPI.Models;
 using FeliveryAPI.Data;
-using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -23,14 +21,21 @@ builder.Services.AddDbContextFactory<ElDbContext>(
               op.UseSqlServer(builder.Configuration.GetConnectionString("MyConn1"));
           }
       );
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
-//builder.Services.AddScoped<IRepository<Restaurant>, RestaurantRepoService>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
 builder.Services.AddScoped<IRepository<MenuItem>, MenuItemRepoService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryRepoService>();
 builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
-//builder.Services.AddScoped<IUserService,userService>();
-builder.Services.AddScoped<IParentStoreService,ParentStoreService>();
+builder.Services.AddScoped<IStoreService,StoreService>();
+
+//CORS policy
+builder.Services.AddCors((setup) =>
+{
+    setup.AddPolicy("default", (options) =>
+    {
+        options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+    });
+});
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(option =>
 {
@@ -56,6 +61,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles();
+
+//CORS policy
+app.UseCors("default");
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
