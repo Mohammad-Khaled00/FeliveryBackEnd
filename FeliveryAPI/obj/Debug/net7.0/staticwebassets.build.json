@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LD1CZjK1fRRa6gNXpvgL4hw9R7VVZkITM0OpFsP4HQg=",
+  "Hash": "q/glLYJz4ueZJf+nJt66shoRcamzYXupNFa7sci6Z1U=",
   "Source": "FeliveryAPI",
   "BasePath": "_content/FeliveryAPI",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FeliveryAPI\\wwwroot",
       "Source": "FeliveryAPI",
-      "ContentRoot": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\Uploads\\Common\\NoImg.jpg",
+      "Identity": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\Uploads\\Common\\NoImg.jpg",
       "SourceId": "FeliveryAPI",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\",
+      "ContentRoot": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
       "RelativePath": "Uploads/Common/NoImg.jpg",
       "AssetKind": "All",
