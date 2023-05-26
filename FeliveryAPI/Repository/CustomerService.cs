@@ -1,73 +1,67 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Transactions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FeliveryAPI.Repository
 {
-    public class StoreService : IStoreService
+    public class CustomerService : ICustomerService
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _IConfiguration;
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public StoreService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public CustomerService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
         {
             _userManager = userManager;
             _IConfiguration = _IConfig;
             Context = context;
         }
-        public List<Restaurant> GetAll()
+        public List<Customer> GetAll()
         {
-            List<Restaurant> RestaurantsList = new();
+            List<Customer> CustomersList = new();
 
             using (var customContext = Context.CreateDbContext())
             {
-                RestaurantsList = customContext.Restaurants.ToList();
+                CustomersList = customContext.Customers.ToList();
             }
-
-            return RestaurantsList;
+            return CustomersList;
         }
-
-        public Restaurant? GetDetails(int id)
+        public Customer? GetDetails(int id)
         {
-            Restaurant RestaurantDetails = new();
+            Customer CustomerDetails = new();
             using (var customContext = Context.CreateDbContext())
             {
-                RestaurantDetails = customContext.Restaurants.Find(id);
+                CustomerDetails = customContext.Customers.Find(id);
             }
-            return RestaurantDetails;
-
+            return CustomerDetails;
         }
-
-        public void Insert(Restaurant restaurant)
+        public void Insert(Customer t)
         {
             using var customContext = Context.CreateDbContext();
-            customContext.Restaurants.Add(restaurant);
+            customContext.Customers.Add(t);
             customContext.SaveChanges();
         }
 
-        public void Update(Restaurant restaurant)
+        public void Update(Customer customer)
         {
+
             using var customContext = Context.CreateDbContext();
-            customContext.Restaurants.Update(restaurant);
+            customContext.Customers.Update(customer);
             customContext.SaveChanges();
         }
         public void Delete(int id)
         {
             using var customContext = Context.CreateDbContext();
-            customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
+            customContext.Customers.Remove(customContext.Customers.Find(id));
             customContext.SaveChanges();
         }
+
         //-------
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
@@ -94,7 +88,7 @@ namespace FeliveryAPI.Repository
                 return new AuthModel { Message = errors };
             }
 
-            await _userManager.AddToRoleAsync(user, "PendingStore");
+            await _userManager.AddToRoleAsync(user, "Customer");
 
             var jwtSecurityToken = await CreateJwtToken(user);
 
@@ -104,7 +98,7 @@ namespace FeliveryAPI.Repository
                 Email = user.Email,
                 ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
-                Roles = new List<string> { "PendingStore" },
+                Roles = new List<string> { "Customer" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
                 Username = user.UserName
             };
@@ -126,7 +120,7 @@ namespace FeliveryAPI.Repository
             var rolesList = await _userManager.GetRolesAsync(user);
 
             using var customContext = Context.CreateDbContext();
-            var localID = customContext.Restaurants.Where(d => d.SecurityID == user.Id).Select(d => d.Id).First();
+            var localID = customContext.Customers.Where(d => d.SecurityID == user.Id).Select(d => d.Id).First();
             authModel.Id = $"{localID}";
             authModel.IsAuthenticated = true;
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
@@ -180,18 +174,16 @@ namespace FeliveryAPI.Repository
             {
                 TransactionManager.ImplicitDistributedTransactions = true;
                 TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
-                //Insert(Data.restaurant);
-                //var result = RegisterAsync(Data.model);
-                //Task.WaitAll(result);
                 var res = await RegisterAsync(Data.Model);
                 if (res.Message != null)
                 {
                     throw new Exception("An error occurred.");
                 }
-                Data.Restaurant.SecurityID = res.Id;
-                Insert(Data.Restaurant);
+                Data.Customer.SecurityID = res.Id;
+                Insert(Data.Customer);
                 transaction.Complete();
-                return new AuthModel{
+                return new AuthModel
+                {
                     Username = res.Username,
                     Email = res.Email,
                     Roles = res.Roles,

@@ -4,46 +4,46 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
-    public class CustomerRepoService : BaseRepoService, IRepository<Customer>
+    public class OfferService : BaseRepoService, IRepository<Offer>
     {
-        public CustomerRepoService(IDbContextFactory<ElDbContext> context) : base(context)
-    {
-
-    }
-        public List<Customer> GetAll()
-
+        public OfferService(IDbContextFactory<ElDbContext> context) : base(context)
         {
-            List<Customer> CustomersList = new List<Customer>();
-
-            using (var customContext = Context.CreateDbContext())
-            {
-                CustomersList = customContext.Customers.ToList();
-            }
-            return CustomersList;
         }
-        public Customer GetDetails(int id)
+
+        public List<Offer> GetAll()
         {
+            List<Offer> CategoriesList = new List<Offer>();
 
             using (var customContext = Context.CreateDbContext())
             {
-                return customContext.Customers.Find(id);
+                CategoriesList = customContext.Offers.ToList();
             }
+            return CategoriesList;
         }
-        public void Insert(Customer t)
+
+        public Offer? GetDetails(int id)
         {
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Customers.Add(t);
+                return customContext.Offers.Find(id);
+            }
+        }
+
+        public void Insert(Offer offer)
+        {
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.Offers.Add(offer);
                 customContext.SaveChanges();
             }
+
         }
 
-        public void Update(Customer customer)
+        public void Update(Offer offer)
         {
-
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Customers.Update(customer);
+                customContext.Offers.Update(offer);
                 customContext.SaveChanges();
             }
         }
@@ -51,11 +51,10 @@ namespace FeliveryAPI.Repository
         {
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Customers.Remove(customContext.Customers.Find(id));
+                customContext.Offers.Remove(customContext.Offers.Find(id));
                 customContext.SaveChanges();
             }
         }
 
-    
     }
 }

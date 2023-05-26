@@ -6,28 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FeliveryAPI.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        public IRepository<Customer> CustomerRepo { get; set; }
-        public CustomerController(IRepository<Customer> customerRepo)
+        public ICustomerService CustomerRepo { get; set; }
+        public CustomerController(ICustomerService customerRepo)
         {
             CustomerRepo = customerRepo;
         }
         [HttpGet]
-        public ActionResult<List<Customer>> getUsers()
+        public ActionResult<List<Customer>> GetUsers()
         {
             return CustomerRepo.GetAll();
         }
         [HttpGet("{id}")]
-        public ActionResult<Customer> getById(int id)
+        public ActionResult<Customer> GetById(int id)
         {
             return CustomerRepo.GetDetails(id);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         {
             CustomerRepo.Delete(id);
 
@@ -39,7 +39,7 @@ namespace FeliveryAPI.Controllers
             return Ok();
         }
         [HttpPut]
-        public ActionResult put(Customer customer)
+        public ActionResult Put(Customer customer)
         {
             if (customer != null && customer.Id != 0)
             {
@@ -49,23 +49,33 @@ namespace FeliveryAPI.Controllers
             return NotFound();
         }
 
-        [HttpPost]
-        public ActionResult Post(Customer customer)
+        [HttpPost("Registration")]
+        public async Task<IActionResult> Registeration([FromBody] RegData Data)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    CustomerRepo.Insert(customer);
-                    return Created("url", customer);
-                    // return 201 & Url is the place where you added the object
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message); // Return 400!
-                }
-            }
-            return BadRequest();
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await CustomerRepo.Register(Data);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
+        }
+
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await CustomerRepo.GetTokenAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            return Ok(result);
         }
     }
 }

@@ -4,46 +4,46 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
-    public class OfferRepoService : BaseRepoService, IRepository<Offer>
+    public class CategoryService : BaseRepoService, IRepository<Category>
     {
-        public OfferRepoService(IDbContextFactory<ElDbContext> context) : base(context)
+        public CategoryService(IDbContextFactory<ElDbContext> context) : base(context)
         {
         }
+        public List<Category> GetAll()
 
-        public List<Offer> GetAll()
         {
-            List<Offer> CategoriesList = new List<Offer>();
+            List<Category> CategoriesList = new List<Category>();
 
             using (var customContext = Context.CreateDbContext())
             {
-                CategoriesList = customContext.Offers.ToList();
+                CategoriesList = customContext.Categories.ToList();
             }
             return CategoriesList;
         }
 
-        public Offer? GetDetails(int id)
+        public Category GetDetails(int id)
         {
+
+            
             using (var customContext = Context.CreateDbContext())
             {
-                return customContext.Offers.Find(id);
+                return customContext.Categories.Find(id);
             }
         }
-
-        public void Insert(Offer offer)
+        public void Insert(Category category)
         {
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Offers.Add(offer);
+                customContext.Categories.Add(category);
                 customContext.SaveChanges();
             }
-
         }
-
-        public void Update(Offer offer)
+        public void Update(Category category)
         {
+
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Offers.Update(offer);
+                customContext.Categories.Update(category);
                 customContext.SaveChanges();
             }
         }
@@ -51,7 +51,7 @@ namespace FeliveryAPI.Repository
         {
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Offers.Remove(customContext.Offers.Find(id));
+                customContext.Categories.Remove(customContext.Categories.Find(id));
                 customContext.SaveChanges();
             }
         }

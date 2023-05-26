@@ -4,6 +4,7 @@ using FeliveryAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    partial class ElDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526204513_CustomerFix")]
+    partial class CustomerFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,7 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalPrice")
+                    b.Property<int>("totalPrice")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -236,28 +239,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c9bd0502-5d0c-4241-baf7-709a985ee9e8",
+                            Id = "ecc3eb28-ff49-4887-9793-a99edd599aa6",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "ad83b4ac-ff00-4cee-a5cd-77709f21ea50",
+                            Id = "a4dd07f6-f7bf-4e13-873f-952042f1e3d3",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "883d7674-084e-4516-bd43-facb3f6ec51a",
+                            Id = "7cfe21c9-f5b7-4152-ac79-9dbf0ddc3bea",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "4444bacf-9920-485c-af6e-5310836c2640",
+                            Id = "44b60b1b-6475-443d-aa90-7da1c481777a",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"

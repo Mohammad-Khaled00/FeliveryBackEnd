@@ -4,6 +4,7 @@ using FeliveryAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    partial class ElDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230526201535_CustomerController")]
+    partial class CustomerController
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,11 +63,9 @@ namespace FeliveryAPI.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SecurityID");
 
                     b.ToTable("Customers");
                 });
@@ -154,7 +155,7 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TotalPrice")
+                    b.Property<int>("totalPrice")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -236,28 +237,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c9bd0502-5d0c-4241-baf7-709a985ee9e8",
+                            Id = "3c23ffb7-d7d9-403a-ac18-621bd8d2e695",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "ad83b4ac-ff00-4cee-a5cd-77709f21ea50",
+                            Id = "bb259a8d-691d-4592-afe8-921149c6c05c",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "883d7674-084e-4516-bd43-facb3f6ec51a",
+                            Id = "6161090b-a853-4231-b506-fda12facc3b1",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "4444bacf-9920-485c-af6e-5310836c2640",
+                            Id = "ebb84fb1-fc9c-4db9-9edc-1f74e8da09fd",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -433,15 +434,6 @@ namespace FeliveryAPI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("SecurityID");
-
-                    b.Navigation("IdentityUser");
                 });
 
             modelBuilder.Entity("FeliveryAPI.Models.MenuItem", b =>

@@ -22,12 +22,12 @@ builder.Services.AddDbContextFactory<ElDbContext>(
           }
       );
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
-builder.Services.AddScoped<IRepository<MenuItem>, MenuItemRepoService>();
-builder.Services.AddScoped<IRepository<Category>, CategoryRepoService>();
-builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
-builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
+builder.Services.AddScoped<IRepository<MenuItem>, MenuItemService>();
+builder.Services.AddScoped<IRepository<Category>, CategoryService>();
+builder.Services.AddScoped<IRepository<Order>, OrderService>();
+builder.Services.AddScoped<IRepository<Offer>, OfferService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
-builder.Services.AddScoped<IRepository<Customer>, CustomerRepoService>();
+builder.Services.AddScoped<ICustomerService,CustomerService>();
 
 //CORS policy
 builder.Services.AddCors((setup) =>

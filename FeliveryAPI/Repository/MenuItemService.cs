@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
-    public class MenuItemRepoService : BaseRepoService,IRepository<MenuItem>
+    public class MenuItemService : BaseRepoService,IRepository<MenuItem>
     {
-        public MenuItemRepoService(IDbContextFactory<ElDbContext> context) : base(context)
+        public MenuItemService(IDbContextFactory<ElDbContext> context) : base(context)
         {
         }
         public List<MenuItem> GetAll()

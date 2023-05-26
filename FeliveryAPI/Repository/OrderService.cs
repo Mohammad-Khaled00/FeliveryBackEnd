@@ -4,57 +4,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
-    public class CategoryRepoService : BaseRepoService, IRepository<Category>
+    public class OrderService : BaseRepoService,IRepository<Order>
     {
-        public CategoryRepoService(IDbContextFactory<ElDbContext> context) : base(context)
+        public OrderService(IDbContextFactory<ElDbContext> context) : base(context)
         {
         }
-        public List<Category> GetAll()
-
+        public List<Order> GetAll()
         {
-            List<Category> CategoriesList = new List<Category>();
+            List<Order> OrdersList = new List<Order>();
 
             using (var customContext = Context.CreateDbContext())
             {
-                CategoriesList = customContext.Categories.ToList();
+                OrdersList = customContext.Orders.ToList();
             }
-            return CategoriesList;
+            return OrdersList;
         }
-
-        public Category GetDetails(int id)
+        public Order? GetDetails(int id)
+        {
+            using (var customContext = Context.CreateDbContext())
+            {
+                return customContext.Orders.Find(id);
+            }
+        }
+        public void Insert(Order order)
         {
 
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.Orders.Add(order);
+                customContext.SaveChanges();
+            }
             
-            using (var customContext = Context.CreateDbContext())
-            {
-                return customContext.Categories.Find(id);
-            }
-        }
-        public void Insert(Category category)
-        {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.Categories.Add(category);
-                customContext.SaveChanges();
-            }
-        }
-        public void Update(Category category)
-        {
-
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.Categories.Update(category);
-                customContext.SaveChanges();
-            }
         }
         public void Delete(int id)
         {
+
             using (var customContext = Context.CreateDbContext())
             {
-                customContext.Categories.Remove(customContext.Categories.Find(id));
+                customContext.Orders.Remove(customContext.Orders.Find(id));
                 customContext.SaveChanges();
             }
         }
 
+        public void Update(Order order)
+        {
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.Orders.Update(order);
+                customContext.SaveChanges();
+            }
+        }
     }
 }

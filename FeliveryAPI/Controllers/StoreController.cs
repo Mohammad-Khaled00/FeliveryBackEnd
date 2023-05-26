@@ -9,7 +9,6 @@ using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
 
-
 namespace FeliveryAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -17,10 +16,11 @@ namespace FeliveryAPI.Controllers
     public class StoreController : ControllerBase
     {
         private readonly IWebHostEnvironment _environment;
-        public IStoreService ParentStoretRepo { get; set; }
-        public StoreController(IStoreService parentStoretRepo, IWebHostEnvironment environment)
+
+        public IStoreService StoreRepo { get; set; }
+        public StoreController(IStoreService storetRepo, IWebHostEnvironment environment)
         {
-            ParentStoretRepo = parentStoretRepo;
+            StoreRepo = storetRepo;
             _environment = environment;
         }
 
@@ -29,24 +29,24 @@ namespace FeliveryAPI.Controllers
         public ActionResult<List<Restaurant>> GetRestaurants()
         {
 
-            return ParentStoretRepo.GetAll();
+            return StoreRepo.GetAll();
         }
         [HttpGet("{id}")]
         public ActionResult<Restaurant> GetById(int id)
         {
-            return ParentStoretRepo.GetDetails(id);
+            return StoreRepo.GetDetails(id);
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            Restaurant restaurant = ParentStoretRepo.GetDetails(id);
+            Restaurant restaurant = StoreRepo.GetDetails(id);
 
             if (restaurant == null)
             {
                 return NotFound();
             }
-            ParentStoretRepo.Delete(id);
+            StoreRepo.Delete(id);
             return Ok(restaurant);
         }
         [HttpPut]
@@ -54,7 +54,7 @@ namespace FeliveryAPI.Controllers
         {
             if (restaurant != null && restaurant.Id != 0)
             {
-                ParentStoretRepo.Update(restaurant);
+                StoreRepo.Update(restaurant);
                 return Ok(restaurant);
             }
             return NotFound();
@@ -104,7 +104,7 @@ namespace FeliveryAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var result = await ParentStoretRepo.Register(Data);
+            var result = await StoreRepo.Register(Data);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
@@ -121,62 +121,12 @@ namespace FeliveryAPI.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await ParentStoretRepo.GetTokenAsync(model);
+            var result = await StoreRepo.GetTokenAsync(model);
 
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
             return Ok(result);
-        }
-
-        [HttpPost("addrole")]
-        public async Task<IActionResult> AddRoleAsync([FromBody] AddRoleModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await ParentStoretRepo.AddRoleAsync(model);
-
-            if (!string.IsNullOrEmpty(result))
-                return BadRequest(result);
-
-            return Ok(model);
         }
     }
 }
-
-        /*[HttpPost]
-        public ActionResult Post(Restaurant restaurant)
-        {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    ParentStoretRepo.Insert(restaurant);
-                    return Created("url", restaurant);
-                    // return 201 & Url is the place where you added the object
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message); // Return 400!
-                }
-            }
-            return BadRequest();
-        }
-
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await ParentStoretRepo.RegisterAsync(model);
-
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
-
-            return Ok(result);
-            //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
-
-        }*/
