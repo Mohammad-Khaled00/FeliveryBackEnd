@@ -11411,19 +11411,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\": {}
+    "C:\\Users\\dell\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj",
+      "projectUniqueName": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\FeliveryAPI.csproj",
       "projectName": "FeliveryAPI",
-      "projectPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj",
-      "packagesPath": "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\obj\\",
+      "projectPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\FeliveryAPI.csproj",
+      "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+      "outputPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mohamed Khaled\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11431,6 +11431,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11521,11 +11522,17 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\FeliveryBackgit\\FeliveryAPI\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",
