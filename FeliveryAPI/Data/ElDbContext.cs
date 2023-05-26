@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using System.Reflection.Emit;
+using FeliveryAPI.Migrations;
 
 namespace FeliveryAPI.Data
 {
@@ -18,10 +19,12 @@ namespace FeliveryAPI.Data
               public DbSet<Customer> Customers { get; set; }
               public DbSet<Offer> Offers { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             SeedRoles(builder);
+            builder.Entity<OrderDetails>().HasKey(vf => new { vf.OrderId, vf.MenuItemID });
         }
         private void SeedRoles(ModelBuilder Builder)
         {

@@ -18,6 +18,7 @@ namespace FeliveryAPI.Models
         public string Address { get; set; } 
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
+
         public virtual Restaurant? Restaurant { get; set; }
          [NotMapped]
         public virtual List<MenuItem?> cartItems { get; set; } //create a fn restricted to the restaurant
