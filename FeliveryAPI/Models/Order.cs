@@ -7,7 +7,7 @@ namespace FeliveryAPI.Models
     {
         public Order()
         {
-            List<MenuItem>? ListOfMenuItems = new List<MenuItem>();
+            List<MenuItem>? cartItems = new List<MenuItem>();
             List<Offer>? ListOfOffers = new List<Offer>();
         }
 

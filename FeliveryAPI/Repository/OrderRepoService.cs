@@ -1,10 +1,11 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Transactions;
 
 namespace FeliveryAPI.Repository
 {
-    public class OrderRepoService : BaseRepoService,IRepository<Order>
+    public class OrderRepoService : BaseRepoService, IOrderWithDetails
     {
         public OrderRepoService(IDbContextFactory<ElDbContext> context) : base(context)
         {
@@ -54,5 +55,33 @@ namespace FeliveryAPI.Repository
                 customContext.SaveChanges();
             }
         }
+        public void InsertOrderDetails(OrderDetails orderDetails)
+        {
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.OrderDetails.Add(orderDetails);
+                customContext.SaveChanges();
+            }
+        }
+
+        public void BothOrderOrderDetails(OrderOrderDetailsData Data)
+        {
+            using TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled);
+            try
+            {
+                TransactionManager.ImplicitDistributedTransactions = true;
+                TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
+                InsertOrderDetails(Data.orderDetailes);
+                Insert(Data.order);
+                transaction.Complete();
+
+            }
+            catch (Exception ex) { }
+        }
+    }
+    public class OrderOrderDetailsData
+    {
+        public Order order { get; set; }
+        public OrderDetails orderDetailes { get; set; }
     }
 }

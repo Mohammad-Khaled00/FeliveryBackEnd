@@ -1,10 +1,11 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Transactions;
 
 namespace FeliveryAPI.Repository
 {
-    public class OrderDetailsService :BaseRepoService , IRepository<OrderDetails>
+    public class OrderDetailsService :BaseRepoService 
     {
         public OrderDetailsService(IDbContextFactory<ElDbContext> context) : base(context)
         {
@@ -38,6 +39,33 @@ namespace FeliveryAPI.Repository
                 customContext.SaveChanges();
             }
         }
+        //public void InsertOrder(Order order)
+        //{
+        //    using (var customContext = Context.CreateDbContext())
+        //    {
+        //        customContext.Orders.Add(order);
+        //        customContext.SaveChanges();
+        //    }
+        //}
+
+        //public void BothOrderOrderDetails(OrderOrderDetailsData Data)
+        //{
+        //    using TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled);
+        //    try
+        //    {
+        //        TransactionManager.ImplicitDistributedTransactions = true;
+        //        TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
+        //        InsertOrder(Data.order);
+        //        Insert(Data.orderDetailes);
+        //        transaction.Complete();
+
+        //    }
+        //    catch (Exception ex) { }
+
+         
+        //}
+
+        ///////////////////////////////////////////////////////
         public void Update(OrderDetails orderDetails)
         {
 
@@ -54,6 +82,11 @@ namespace FeliveryAPI.Repository
                 customContext.OrderDetails.Remove(customContext.OrderDetails.Find(id));
                 customContext.SaveChanges();
             }
-        }
+        }      
     }
+    //public class OrderOrderDetailsData
+    //{
+    //    public Order order { get; set; }
+    //    public OrderDetails orderDetailes { get; set; }
+    //}
 }

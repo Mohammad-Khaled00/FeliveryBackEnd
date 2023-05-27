@@ -28,7 +28,8 @@ builder.Services.AddScoped<IRepository<Order>, OrderRepoService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferRepoService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
 builder.Services.AddScoped<IRepository<Customer>, CustomerRepoService>();
-builder.Services.AddScoped<IRepository<OrderDetails>, OrderDetailsService>();
+builder.Services.AddScoped<IOrderWithDetails, OrderRepoService>();
+//builder.Services.AddScoped<IRepository<OrderDetails>, OrderDetailsService>();
 
 //CORS policy
 builder.Services.AddCors((setup) =>
