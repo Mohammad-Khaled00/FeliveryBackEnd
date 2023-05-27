@@ -11,7 +11,7 @@ namespace FeliveryAPI.Repository
         }
         public List<MenuItem> GetAll()
         {
-            List<MenuItem> MenuItemList = new List<MenuItem>();
+            List<MenuItem> MenuItemList = new();
 
             using (var customContext = Context.CreateDbContext())
             {
@@ -48,28 +48,22 @@ namespace FeliveryAPI.Repository
 
         public void Insert(MenuItem t)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.MenuItems.Add(t);
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.MenuItems.Add(t);
+            customContext.SaveChanges();
         }
 
         public void Update(MenuItem menuitem)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.MenuItems.Update(menuitem);
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.MenuItems.Update(menuitem);
+            customContext.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var customContext = Context.CreateDbContext())
-            {
-                customContext.MenuItems.Remove(new MenuItem() { Id = id });
-                customContext.SaveChanges();
-            }
+            using var customContext = Context.CreateDbContext();
+            customContext.MenuItems.Remove(new MenuItem() { Id = id });
+            customContext.SaveChanges();
         }
 
     }

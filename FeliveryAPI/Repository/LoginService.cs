@@ -43,7 +43,6 @@ namespace FeliveryAPI.Repository
             }
             catch (Exception)
             {
-
                 localID = customContext.Restaurants.Where(c => c.SecurityID == user.Id).Select(c => c.Id).First();
             }
 

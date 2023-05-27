@@ -15,7 +15,7 @@ namespace FeliveryAPI.Controllers
             OfferRepo= offerRepo;
         }
         [HttpGet]
-        public ActionResult<List<Offer>> getFoodServed()
+        public ActionResult<List<Offer>> GetFoodServed()
         {
             var listOfOffers = OfferRepo.GetAll();
 
@@ -26,18 +26,18 @@ namespace FeliveryAPI.Controllers
             return Ok(listOfOffers);
         }
         [HttpGet("{id}")]
-        public ActionResult<Offer> getById(int id)
+        public ActionResult<Offer> GetById(int id)
         {
             return OfferRepo.GetDetails(id);
         }
         [HttpDelete("{id}")]
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         {     
             OfferRepo.Delete(id);
             return Ok();
         }
         [HttpPut]
-        public ActionResult put(Offer offer)
+        public ActionResult Put(Offer offer)
         {
             if (offer != null && offer.Id != 0)
             {

@@ -11,17 +11,19 @@ namespace FeliveryAPI.Data
 
         public ElDbContext(DbContextOptions<ElDbContext> options) : base(options) { }
 
-              public DbSet<Restaurant> Restaurants { get; set; }
-              public DbSet<Category> Categories { get; set; }
-              public DbSet<MenuItem> MenuItems { get; set; }
-              public DbSet<Order> Orders { get; set; }
-              public DbSet<Customer> Customers { get; set; }
-              public DbSet<Offer> Offers { get; set; }
+        public DbSet<Restaurant> Restaurants { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             SeedRoles(builder);
+            builder.Entity<OrderDetails>().HasKey(vf => new { vf.OrderId, vf.MenuItemID });
         }
         private void SeedRoles(ModelBuilder Builder)
         {

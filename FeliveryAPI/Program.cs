@@ -26,6 +26,7 @@ builder.Services.AddScoped<IRepository<MenuItem>, MenuItemService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryService>();
 builder.Services.AddScoped<IRepository<Order>, OrderService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferService>();
+builder.Services.AddScoped<IRepository<OrderDetails>, OrderDetailsService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<ILoginService, LoginService>();

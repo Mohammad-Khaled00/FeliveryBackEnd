@@ -21,6 +21,7 @@ namespace FeliveryAPI.Models
         public int RestaurantID { get; set; }
         public virtual Restaurant? Restaurant { get; set; }
         public string MenuItemImg { get; set; }
-
+        [NotMapped]
+        public virtual List<Order?> Orders { get; set; }
     }
 }

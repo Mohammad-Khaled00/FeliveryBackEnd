@@ -1,16 +1,12 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Transactions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace FeliveryAPI.Repository
 {
@@ -75,7 +71,7 @@ namespace FeliveryAPI.Repository
                 var res = await RegisterAsync(Data.Model);
                 if (res.Message != null)
                 {
-                    throw new Exception("An error occurred.");
+                    throw new Exception(res.Message);
                 }
                 Data.Restaurant.SecurityID = res.Id;
                 Insert(Data.Restaurant);

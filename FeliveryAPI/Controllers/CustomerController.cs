@@ -1,7 +1,5 @@
 ﻿using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FeliveryAPI.Controllers

@@ -15,19 +15,19 @@ namespace FeliveryAPI.Controllers
             OrderRepo = orderRepo;
         }
         [HttpGet]
-        public ActionResult<List<Order>> getOrders()
+        public ActionResult<List<Order>> GetOrders()
         {
 
             return OrderRepo.GetAll();
         }
         [HttpGet("{id}")]
-        public ActionResult<Order> getById(int id)
+        public ActionResult<Order> GetById(int id)
         {
             return OrderRepo.GetDetails(id);
         }
 
         [HttpDelete]
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         {
             Order order = OrderRepo.GetDetails(id);
 
@@ -39,7 +39,7 @@ namespace FeliveryAPI.Controllers
             return Ok(order);
         }
         [HttpPut]
-        public ActionResult put( Order order)
+        public ActionResult Put( Order order)
         {
         
             if (order.Id != 0 && order != null)

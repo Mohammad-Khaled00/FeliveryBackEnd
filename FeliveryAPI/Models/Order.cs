@@ -8,8 +8,8 @@ namespace FeliveryAPI.Models
         public Order()
         {
             //List<Offer>? ListOfOffers = new();
-            Customer = new Customer();
-            Restaurant = new Restaurant();
+            //Customer = new Customer();
+            //Restaurant = new Restaurant();
         }
 
         [Key]
@@ -27,7 +27,6 @@ namespace FeliveryAPI.Models
         [ForeignKey(nameof(Customer))]
         public int CustomerID { get; set; }
         public virtual Customer? Customer { get; set; }
-
 
     }
 }
