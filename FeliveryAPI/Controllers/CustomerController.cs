@@ -62,20 +62,5 @@ namespace FeliveryAPI.Controllers
 
             return Ok(result);
         }
-
-
-        [HttpPost("Login")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await CustomerRepo.GetTokenAsync(model);
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
-
-            return Ok(result);
-        }
     }
 }

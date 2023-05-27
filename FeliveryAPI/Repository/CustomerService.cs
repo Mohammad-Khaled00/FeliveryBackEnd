@@ -41,12 +41,6 @@ namespace FeliveryAPI.Repository
             }
             return CustomerDetails;
         }
-        public void Insert(Customer t)
-        {
-            using var customContext = Context.CreateDbContext();
-            customContext.Customers.Add(t);
-            customContext.SaveChanges();
-        }
 
         public void Update(Customer customer)
         {
@@ -62,7 +56,46 @@ namespace FeliveryAPI.Repository
             customContext.SaveChanges();
         }
 
+        public async Task<AuthModel> Register(RegData Data)
+        {
+            using TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled);
+            try
+            {
+                TransactionManager.ImplicitDistributedTransactions = true;
+                TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
+                var res = await RegisterAsync(Data.Model);
+                if (res.Message != null)
+                {
+                    throw new Exception("An error occurred.");
+                }
+                Data.Customer.SecurityID = res.Id;
+                Insert(Data.Customer);
+                transaction.Complete();
+                return new AuthModel
+                {
+                    Username = res.Username,
+                    Email = res.Email,
+                    Roles = res.Roles,
+                    IsAuthenticated = res.IsAuthenticated,
+                    Token = res.Token,
+                    ExpiresOn = res.ExpiresOn
+                };
+            }
+            catch (Exception ex)
+            {
+                transaction.Dispose();
+                return new AuthModel { Message = ex.Message };
+            }
+        }
         //-------
+
+        public void Insert(Customer t)
+        {
+            using var customContext = Context.CreateDbContext();
+            customContext.Customers.Add(t);
+            customContext.SaveChanges();
+        }
+
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
@@ -104,33 +137,6 @@ namespace FeliveryAPI.Repository
             };
         }
 
-        public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
-        {
-            var authModel = new AuthModel();
-
-            var user = await _userManager.FindByEmailAsync(model.Email);
-
-            if (user is null || !await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                authModel.Message = "Email or Password is incorrect!";
-                return authModel;
-            }
-
-            var jwtSecurityToken = await CreateJwtToken(user);
-            var rolesList = await _userManager.GetRolesAsync(user);
-
-            using var customContext = Context.CreateDbContext();
-            var localID = customContext.Customers.Where(d => d.SecurityID == user.Id).Select(d => d.Id).First();
-            authModel.Id = $"{localID}";
-            authModel.IsAuthenticated = true;
-            authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-            authModel.Email = user.Email;
-            authModel.Username = user.UserName;
-            authModel.ExpiresOn = jwtSecurityToken.ValidTo;
-            authModel.Roles = rolesList.ToList();
-            return authModel;
-        }
-
         private async Task<JwtSecurityToken> CreateJwtToken(IdentityUser user)
         {
             var userClaims = await _userManager.GetClaimsAsync(user);
@@ -165,38 +171,6 @@ namespace FeliveryAPI.Repository
                 signingCredentials: signingCredentials);
 
             return jwtSecurityToken;
-        }
-
-        public async Task<AuthModel> Register(RegData Data)
-        {
-            using TransactionScope transaction = new(TransactionScopeAsyncFlowOption.Enabled);
-            try
-            {
-                TransactionManager.ImplicitDistributedTransactions = true;
-                TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
-                var res = await RegisterAsync(Data.Model);
-                if (res.Message != null)
-                {
-                    throw new Exception("An error occurred.");
-                }
-                Data.Customer.SecurityID = res.Id;
-                Insert(Data.Customer);
-                transaction.Complete();
-                return new AuthModel
-                {
-                    Username = res.Username,
-                    Email = res.Email,
-                    Roles = res.Roles,
-                    IsAuthenticated = res.IsAuthenticated,
-                    Token = res.Token,
-                    ExpiresOn = res.ExpiresOn
-                };
-            }
-            catch (Exception ex)
-            {
-                transaction.Dispose();
-                return new AuthModel { Message = ex.Message };
-            }
         }
     }
 }

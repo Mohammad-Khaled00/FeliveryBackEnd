@@ -18,9 +18,9 @@ namespace FeliveryAPI.Controllers
         private readonly IWebHostEnvironment _environment;
 
         public IStoreService StoreRepo { get; set; }
-        public StoreController(IStoreService storetRepo, IWebHostEnvironment environment)
+        public StoreController(IStoreService storeRepo, IWebHostEnvironment environment)
         {
-            StoreRepo = storetRepo;
+            StoreRepo = storeRepo;
             _environment = environment;
         }
 
@@ -112,21 +112,6 @@ namespace FeliveryAPI.Controllers
             return Ok(result);
             //return Ok();
             //return Ok(new { token = result.Token, expiration = result.ExpiresOn});
-        }
-
-
-        [HttpPost("Login")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await StoreRepo.GetTokenAsync(model);
-
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
-
-            return Ok(result);
         }
     }
 }
