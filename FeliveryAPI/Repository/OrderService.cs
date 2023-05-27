@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
-    public class OrderService : BaseRepoService,IRepository<Order>
+    public class OrderService : BaseRepoService, IRepository<Order>
     {
         public OrderService(IDbContextFactory<ElDbContext> context) : base(context)
         {
@@ -26,15 +26,12 @@ namespace FeliveryAPI.Repository
         }
         public void Insert(Order order)
         {
-
             using var customContext = Context.CreateDbContext();
             customContext.Orders.Add(order);
             customContext.SaveChanges();
-
         }
         public void Delete(int id)
         {
-
             using var customContext = Context.CreateDbContext();
             customContext.Orders.Remove(customContext.Orders.Find(id));
             customContext.SaveChanges();

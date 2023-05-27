@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,12 +26,13 @@ builder.Services.AddDbContextFactory<ElDbContext>(
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
 builder.Services.AddScoped<IRepository<MenuItem>, MenuItemService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryService>();
-builder.Services.AddScoped<IRepository<Order>, OrderService>();
 builder.Services.AddScoped<IRepository<Offer>, OfferService>();
-builder.Services.AddScoped<IRepository<OrderDetails>, OrderDetailsService>();
+builder.Services.AddScoped<IRepository<Order>, OrderService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
+
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 //CORS policy
 builder.Services.AddCors((setup) =>
