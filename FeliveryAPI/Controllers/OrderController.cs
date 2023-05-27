@@ -9,8 +9,8 @@ namespace FeliveryAPI.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        public IRepository<Order> OrderRepo { get; set; }
-        public OrderController(IRepository<Order> orderRepo)
+        public IOrderWithDetails OrderRepo { get; set; }
+        public OrderController(IOrderWithDetails orderRepo)
         {
             OrderRepo = orderRepo;
         }
@@ -50,23 +50,30 @@ namespace FeliveryAPI.Controllers
             return NotFound();
         }
 
+        //[HttpPost]
+        //public ActionResult Post(Order order)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            OrderRepo.Insert(order);
+        //            return Created("url", order);
+        //            // return 201 & Url is the place where you added the object
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return BadRequest(ex.Message); // Return 400!
+        //        }
+        //    }
+        //    return BadRequest();
+        //}
+
         [HttpPost]
-        public ActionResult Post(Order order)
+        public void Post([FromBody] OrderOrderDetailsData Data)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    OrderRepo.Insert(order);
-                    return Created("url", order);
-                    // return 201 & Url is the place where you added the object
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message); // Return 400!
-                }
-            }
-            return BadRequest();
+            if (!ModelState.IsValid)
+                OrderRepo.BothOrderOrderDetails(Data);
         }
     }
 }
