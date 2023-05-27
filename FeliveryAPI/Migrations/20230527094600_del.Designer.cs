@@ -4,6 +4,7 @@ using FeliveryAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    partial class ElDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230527094600_del")]
+    partial class del
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,18 +169,18 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MenuItemID")
+                    b.Property<int>("MeniItemID")
                         .HasColumnType("int");
 
-                    b.Property<int>("price")
+                    b.Property<int?>("menuItemId")
                         .HasColumnType("int");
 
                     b.Property<int>("quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "MenuItemID");
+                    b.HasKey("OrderId", "MeniItemID");
 
-                    b.HasIndex("MenuItemID");
+                    b.HasIndex("menuItemId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -252,28 +255,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "303e5c9d-fc85-42f6-bdb3-a95bfaf2de5c",
+                            Id = "a2553016-1831-4c03-84b2-6249836c2dbd",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "d57e2618-3e76-4a23-afbf-1a034f770a92",
+                            Id = "08ef8412-dbbe-42c1-b800-02ef0d25000f",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "36283e0e-6d4e-48d4-80f2-33e2c6458668",
+                            Id = "5cd6b551-a996-42b7-97d0-aeb2bb216c70",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "eb8413da-aa7b-47be-91bb-1ec22954cd79",
+                            Id = "5f0a6a93-5bfc-411b-bdb2-0fbb44baaf5d",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -498,17 +501,15 @@ namespace FeliveryAPI.Migrations
 
             modelBuilder.Entity("FeliveryAPI.Models.OrderDetails", b =>
                 {
-                    b.HasOne("FeliveryAPI.Models.MenuItem", "menuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FeliveryAPI.Models.Order", "order")
                         .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("FeliveryAPI.Models.MenuItem", "menuItem")
+                        .WithMany()
+                        .HasForeignKey("menuItemId");
 
                     b.Navigation("menuItem");
 

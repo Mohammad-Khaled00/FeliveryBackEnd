@@ -4,6 +4,7 @@ using FeliveryAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    partial class ElDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230527095009_delorderdetails")]
+    partial class delorderdetails
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,27 +164,6 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("FeliveryAPI.Models.OrderDetails", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuItemID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "MenuItemID");
-
-                    b.HasIndex("MenuItemID");
-
-                    b.ToTable("OrderDetails");
-                });
-
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
                 {
                     b.Property<int>("Id")
@@ -252,28 +234,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "303e5c9d-fc85-42f6-bdb3-a95bfaf2de5c",
+                            Id = "e853db0d-783a-4216-a347-d55c1fc80368",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "d57e2618-3e76-4a23-afbf-1a034f770a92",
+                            Id = "1d2fd615-a25c-4335-a4a3-d3a7468e9fe5",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "36283e0e-6d4e-48d4-80f2-33e2c6458668",
+                            Id = "e2a709d4-4076-4685-970f-f1e9e7cb0c3f",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "eb8413da-aa7b-47be-91bb-1ec22954cd79",
+                            Id = "228cbc86-8ff0-40d0-8abe-f8d7954e2d1e",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -494,25 +476,6 @@ namespace FeliveryAPI.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Restaurant");
-                });
-
-            modelBuilder.Entity("FeliveryAPI.Models.OrderDetails", b =>
-                {
-                    b.HasOne("FeliveryAPI.Models.MenuItem", "menuItem")
-                        .WithMany()
-                        .HasForeignKey("MenuItemID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FeliveryAPI.Models.Order", "order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("menuItem");
-
-                    b.Navigation("order");
                 });
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
