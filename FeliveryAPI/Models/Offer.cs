@@ -7,14 +7,14 @@ namespace FeliveryAPI.Models
     {
         public Offer()
         {
-            MenuItem? menuItem= new MenuItem();
+            MenuItem? menuItem = new();
         }
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public int offerPrice { get; set; }
-        public string offerImg { get; set; }
+        public int OfferPrice { get; set; }
+        public string OfferImg { get; set; }
         [NotMapped]
         public virtual List<MenuItem>? MenuitemOffers { get; set; }
     }

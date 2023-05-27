@@ -11,8 +11,8 @@ namespace FeliveryAPI.Models
         public string Name { get; set; }
         [Required]
         public int Price { get; set; }
-        //public string? description { get; set; }
-
+        public string? Description { get; set; }
+        public string MenuItemImg { get; set; }
         [ForeignKey(nameof(Category))]
         public int CategoryID { get; set; }
         public virtual Category? Category { get; set; }
@@ -20,9 +20,5 @@ namespace FeliveryAPI.Models
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
         public virtual Restaurant? Restaurant { get; set; }
-        public string MenuItemImg { get; set; }
-        [NotMapped]
-        public virtual List<Order?> Orders { get; set; }
-
     }
 }

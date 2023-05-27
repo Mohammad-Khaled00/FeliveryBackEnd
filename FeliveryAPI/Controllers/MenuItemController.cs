@@ -21,7 +21,7 @@ namespace FeliveryAPI.Controllers
             MenuItemRepo = menuItemRepo;
         }
         [HttpGet]
-        public ActionResult<List<MenuItem>> getFoodServed()
+        public ActionResult<List<MenuItem>> GetFoodServed()
         {
             var listOfMenuItem = MenuItemRepo.GetAll();
 
@@ -32,18 +32,18 @@ namespace FeliveryAPI.Controllers
             return Ok(listOfMenuItem);
         }
         [HttpGet("{id}")]
-        public ActionResult<MenuItem> getById(int id)
+        public ActionResult<MenuItem> GetById(int id)
         {
             return MenuItemRepo.GetDetails(id);
         }
         [HttpDelete("{id}")]
-        public ActionResult delete(int id)
+        public ActionResult Delete(int id)
         { 
             MenuItemRepo.Delete(id);
             return Ok();
         }
         [HttpPut]
-        public ActionResult put(MenuItem menuItem)
+        public ActionResult Put(MenuItem menuItem)
         {
             if (menuItem != null && menuItem.Id != 0)
             {

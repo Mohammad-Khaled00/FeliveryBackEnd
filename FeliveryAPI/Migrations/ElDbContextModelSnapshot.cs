@@ -59,7 +59,12 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("MobileNumber")
                         .HasColumnType("int");
 
+                    b.Property<string>("SecurityID")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SecurityID");
 
                     b.ToTable("Customers");
                 });
@@ -74,6 +79,9 @@ namespace FeliveryAPI.Migrations
 
                     b.Property<int>("CategoryID")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MenuItemImg")
                         .IsRequired()
@@ -114,14 +122,14 @@ namespace FeliveryAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("offerImg")
+                    b.Property<string>("OfferImg")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("offerPrice")
+                    b.Property<int>("OfferPrice")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestaurantId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -149,7 +157,7 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
 
-                    b.Property<int>("totalPrice")
+                    b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -169,10 +177,10 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("MenuItemID")
                         .HasColumnType("int");
 
-                    b.Property<int>("price")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId", "MenuItemID");
@@ -252,28 +260,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "303e5c9d-fc85-42f6-bdb3-a95bfaf2de5c",
+                            Id = "82742b0f-54e7-4412-bda5-9dbcc84df667",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "d57e2618-3e76-4a23-afbf-1a034f770a92",
+                            Id = "e69df621-cc66-4917-9c5a-586cc43f39e8",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "36283e0e-6d4e-48d4-80f2-33e2c6458668",
+                            Id = "c2e683a8-2afc-4bcc-a849-94eadf3fa84c",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "eb8413da-aa7b-47be-91bb-1ec22954cd79",
+                            Id = "56c1adcd-f7ae-45fc-8cd9-382dfd18f66b",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -451,6 +459,15 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("SecurityID");
+
+                    b.Navigation("IdentityUser");
+                });
+
             modelBuilder.Entity("FeliveryAPI.Models.MenuItem", b =>
                 {
                     b.HasOne("FeliveryAPI.Models.Category", "Category")
@@ -498,21 +515,21 @@ namespace FeliveryAPI.Migrations
 
             modelBuilder.Entity("FeliveryAPI.Models.OrderDetails", b =>
                 {
-                    b.HasOne("FeliveryAPI.Models.MenuItem", "menuItem")
+                    b.HasOne("FeliveryAPI.Models.MenuItem", "MenuItem")
                         .WithMany()
                         .HasForeignKey("MenuItemID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FeliveryAPI.Models.Order", "order")
-                        .WithMany()
+                    b.HasOne("FeliveryAPI.Models.Order", "Order")
+                        .WithMany("Details")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("menuItem");
+                    b.Navigation("MenuItem");
 
-                    b.Navigation("order");
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
@@ -578,6 +595,11 @@ namespace FeliveryAPI.Migrations
             modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("FeliveryAPI.Models.Order", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>

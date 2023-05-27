@@ -15,12 +15,12 @@ namespace FeliveryAPI.Controllers
             CategoryRepo = categoryRepo;
         }
         [HttpGet]
-        public ActionResult<List<Category>> getCategories()
+        public ActionResult<List<Category>> GetCategories()
         {
             return CategoryRepo.GetAll();
         }
         [HttpGet("{id}")]
-        public ActionResult<Category> getById(int id)
+        public ActionResult<Category> GetById(int id)
         {
             return CategoryRepo.GetDetails(id);
         }

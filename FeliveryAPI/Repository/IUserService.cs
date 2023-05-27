@@ -1,11 +1,9 @@
-﻿namespace FeliveryAPI.Models
+﻿using FeliveryAPI.Models;
+
+namespace FeliveryAPI.Repository
 {
     public interface IUserService
     {
         Task<AuthModel> RegisterAsync(RegisterModel model);
-        Task<AuthModel> GetTokenAsync(TokenRequestModel model);
-
-        Task<string> AddRoleAsync(AddRoleModel model);
-
     }
 }
