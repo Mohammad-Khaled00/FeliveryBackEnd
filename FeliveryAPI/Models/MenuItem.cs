@@ -12,7 +12,7 @@ namespace FeliveryAPI.Models
         [Required]
         public int Price { get; set; }
         public string? Description { get; set; }
-        public string MenuItemImg { get; set; }
+        public string? MenuItemImg { get; set; }
         [ForeignKey(nameof(Category))]
         public int CategoryID { get; set; }
         public virtual Category? Category { get; set; }

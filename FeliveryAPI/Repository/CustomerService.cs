@@ -1,4 +1,5 @@
 ﻿using FeliveryAPI.Data;
+using FeliveryAPI.Migrations;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +47,9 @@ namespace FeliveryAPI.Repository
         {
 
             using var customContext = Context.CreateDbContext();
+            var SecID = customer.SecurityID;
             customContext.Customers.Update(customer);
+            customer.SecurityID = SecID;
             customContext.SaveChanges();
         }
         public void Delete(int id)

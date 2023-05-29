@@ -7,6 +7,6 @@ namespace FeliveryAPI.Repository
         public RegisterModel Model { get; set; }
         public Restaurant? Restaurant { get; set; }
         public Customer? Customer { get; set; }
-
+        public IFormFile? Image { get; set; }
     }
 }

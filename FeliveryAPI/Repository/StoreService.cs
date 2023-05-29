@@ -1,9 +1,12 @@
-﻿using FeliveryAPI.Data;
+﻿using Azure.Core;
+using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Transactions;
@@ -14,13 +17,16 @@ namespace FeliveryAPI.Repository
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _IConfiguration;
+        private readonly IWebHostEnvironment _environment;
+
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public StoreService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public StoreService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context, IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _IConfiguration = _IConfig;
             Context = context;
+            _environment = environment;
         }
         public List<Restaurant> GetAll()
         {
@@ -48,7 +54,9 @@ namespace FeliveryAPI.Repository
         public void Update(Restaurant restaurant)
         {
             using var customContext = Context.CreateDbContext();
+            var SecID = restaurant.SecurityID;
             customContext.Restaurants.Update(restaurant);
+            restaurant.SecurityID = SecID;
             customContext.SaveChanges();
         }
         public void Delete(int id)
@@ -73,7 +81,9 @@ namespace FeliveryAPI.Repository
                 {
                     throw new Exception(res.Message);
                 }
+                var Img = UploadFile(Data);
                 Data.Restaurant.SecurityID = res.Id;
+                Data.Restaurant.StoreImg = Img;
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -176,6 +186,42 @@ namespace FeliveryAPI.Repository
                 signingCredentials: signingCredentials);
 
             return jwtSecurityToken;
+        }
+
+
+
+        //            string Filename = source.FileName;
+        //            string Filepath = GetFilePath(Filename);
+        //            if (!System.IO.Directory.Exists(Filepath))
+        //            {
+        //                System.IO.Directory.CreateDirectory(Filepath);
+        //            }
+        //            string imagepath = Filepath + "\\image.png";
+        //            if (System.IO.File.Exists(imagepath))
+        //            {
+        //                System.IO.File.Delete(imagepath);
+        //            }
+        //            using (FileStream stream = System.IO.File.Create(imagepath))
+        //            {
+        //                await source.CopyToAsync(stream);
+        //                Results = true;
+        //            }
+
+        private string UploadFile(RegData Data)
+        {
+            if (Data.Image!=null)
+            {
+                string UploadDir = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\");
+                string fileName = Guid.NewGuid().ToString() + "-" + Data.Image.FileName;
+                string filePath = Path.Combine(UploadDir, fileName);
+                using (FileStream fileStream = new(filePath, FileMode.Create))
+                {
+                    Data.Image.CopyTo(fileStream);
+                }
+                return filePath;
+            }
+            else
+               throw new Exception("Image Not Found");
         }
     }
 }

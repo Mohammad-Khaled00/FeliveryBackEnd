@@ -84,7 +84,6 @@ namespace FeliveryAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MenuItemImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -260,28 +259,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "82742b0f-54e7-4412-bda5-9dbcc84df667",
+                            Id = "2a6800e1-d24d-45c2-a558-883f85e81158",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "e69df621-cc66-4917-9c5a-586cc43f39e8",
+                            Id = "f21f029a-9691-4417-b7cf-4dd9dac84c8d",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "c2e683a8-2afc-4bcc-a849-94eadf3fa84c",
+                            Id = "81bd0896-6f8e-4485-96b1-80f5c16463d9",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "56c1adcd-f7ae-45fc-8cd9-382dfd18f66b",
+                            Id = "993831a0-23fe-46dc-b739-3c760f2b843f",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
