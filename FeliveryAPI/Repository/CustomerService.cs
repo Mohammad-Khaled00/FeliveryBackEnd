@@ -1,5 +1,6 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,11 +13,11 @@ namespace FeliveryAPI.Repository
 {
     public class CustomerService : ICustomerService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _IConfiguration;
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public CustomerService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public CustomerService(Microsoft.AspNetCore.Identity.UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
         {
             _userManager = userManager;
             _IConfiguration = _IConfig;
@@ -30,6 +31,14 @@ namespace FeliveryAPI.Repository
             {
                 CustomersList = customContext.Customers.ToList();
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var custr in CustomersList)
+                {
+                    custr.IdentityUser = customContext.Users.First(r => r.Id == custr.SecurityID);
+
+                }
+            }
             return CustomersList;
         }
         public Customer? GetDetails(int id)
@@ -39,15 +48,23 @@ namespace FeliveryAPI.Repository
             {
                 CustomerDetails = customContext.Customers.Find(id);
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                CustomerDetails.IdentityUser = customContext.Users.First(r => r.Id == CustomerDetails.SecurityID);
+            }
             return CustomerDetails;
         }
-
         public void Update(Customer customer)
         {
 
-            using var customContext = Context.CreateDbContext();
-            customContext.Customers.Update(customer);
-            customContext.SaveChanges();
+            //Customer CustomerWithSecID = new();
+            using (var customContext = Context.CreateDbContext())
+            {
+                //CustomerWithSecID = customContext.Customers.Find(customer.Id);
+                //customer.SecurityID = CustomerWithSecID.SecurityID;
+                customContext.Customers.Update(customer);
+                customContext.SaveChanges();
+            }       
         }
         public void Delete(int id)
         {

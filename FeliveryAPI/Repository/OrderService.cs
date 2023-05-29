@@ -17,12 +17,34 @@ namespace FeliveryAPI.Repository
             {
                 OrdersList = customContext.Orders.ToList();
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var order in OrdersList)
+                {
+                    order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);
+                    order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
+
+                }
+            }
             return OrdersList;
         }
         public Order? GetDetails(int id)
         {
-            using var customContext = Context.CreateDbContext();
-            return customContext.Orders.Find(id);
+
+            var OrderDet= new Order();
+            using (var customContext = Context.CreateDbContext())
+            {
+                OrderDet = customContext.Orders.Find(id);
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+
+                OrderDet.Restaurant = customContext.Restaurants.First(r => r.Id == OrderDet.RestaurantID);
+                OrderDet.Customer = customContext.Customers.First(r => r.Id == OrderDet.CustomerID);
+
+            }
+            return OrderDet;
+
         }
         public void Insert(Order order)
         {

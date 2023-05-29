@@ -34,7 +34,12 @@ namespace FeliveryAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RestaurantID");
 
                     b.ToTable("Categories");
                 });
@@ -260,28 +265,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "82742b0f-54e7-4412-bda5-9dbcc84df667",
+                            Id = "f31c1718-ddb5-434b-968d-ed3b18213a21",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "e69df621-cc66-4917-9c5a-586cc43f39e8",
+                            Id = "3d019dcb-4e39-4356-8571-a3f0dccb5296",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "c2e683a8-2afc-4bcc-a849-94eadf3fa84c",
+                            Id = "51e3eb82-4498-4392-8445-2686c62cc5ae",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "56c1adcd-f7ae-45fc-8cd9-382dfd18f66b",
+                            Id = "bcaddda4-db4e-41e8-933d-ee519e8e4da6",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -459,6 +464,17 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FeliveryAPI.Models.Category", b =>
+                {
+                    b.HasOne("FeliveryAPI.Models.Restaurant", "Restaurant")
+                        .WithMany("Categories")
+                        .HasForeignKey("RestaurantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -604,6 +620,8 @@ namespace FeliveryAPI.Migrations
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("MenuItems");
 
                     b.Navigation("Offers");

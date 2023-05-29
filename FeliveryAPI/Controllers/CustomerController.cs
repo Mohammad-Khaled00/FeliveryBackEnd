@@ -8,6 +8,7 @@ namespace FeliveryAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
+
         public ICustomerService CustomerRepo { get; set; }
         public CustomerController(ICustomerService customerRepo)
         {
@@ -41,6 +42,7 @@ namespace FeliveryAPI.Controllers
         {
             if (customer != null && customer.Id != 0)
             {
+                var SecID = customer.SecurityID;
                 CustomerRepo.Update(customer);
                 return Ok(customer);
             }

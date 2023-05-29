@@ -17,6 +17,7 @@ namespace FeliveryAPI.Models
             MenuItems = new List<MenuItem>();
             Offers = new List<Offer>();
             Orders = new List<Order>();
+            Categories = new List<Category>();
         }
 
 
@@ -41,6 +42,7 @@ namespace FeliveryAPI.Models
         public virtual ICollection<MenuItem?> MenuItems { get; set; }
         public virtual ICollection<Order?> Orders { get; set; }
         public virtual ICollection<Offer?> Offers { get; set; }
+        public virtual ICollection<Category?> Categories { get; set; }
 
 
         /// <summary>
