@@ -31,18 +31,18 @@ namespace FeliveryAPI.Controllers
             return StoreRepo.GetDetails(id);
         }
 
-        [HttpGet("GetOrdersBystoreID")]
-        public async Task<IActionResult> GetOrdersBystoreIDAsync(int storeID)
+        [HttpGet("{OstoreID}")]
+        public async Task<IActionResult> GetOrdersBystoreIDAsync(int OstoreID)
         {
-            var orders = await StoreRepo.GetOrdersBystoreID(storeID);
+            var orders = await StoreRepo.GetOrdersBystoreID(OstoreID);
 
             return Ok(orders);
         }
 
-        [HttpGet("GetmenuitemsBystoreID")]
-        public async Task<IActionResult> GetmenuitemsBystoreIDAsync(int storeID)
+        [HttpGet("{MstoreID}")]
+        public async Task<IActionResult> GetmenuitemsBystoreIDAsync(int MstoreID)
         {
-            var menuitems = await StoreRepo.GetmenuitemsBystoreID(storeID);
+            var menuitems = await StoreRepo.GetmenuitemsBystoreID(MstoreID);
 
             return Ok(menuitems);
         }
