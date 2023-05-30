@@ -1,5 +1,6 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,7 +20,8 @@ namespace FeliveryAPI.Repository
         }
         public async Task<string> AddRoleAsync(AddRoleModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.UserId);
+
+                var user = await _userManager.FindByIdAsync(model.UserId);
 
             if (user is null || !await _roleManager.RoleExistsAsync(model.Role))
                 return "Invalid user ID or Role";
@@ -36,9 +38,22 @@ namespace FeliveryAPI.Repository
                     await _userManager.RemoveFromRoleAsync(user, role);
             }
 
-            var result = await _userManager.AddToRoleAsync(user, model.Role);
+                var result = await _userManager.AddToRoleAsync(user, model.Role);
+            using (var customContext = Context.CreateDbContext())
+            {
+                try
+                {
+                    var PromotedStore = customContext.Restaurants.Where(s => s.SecurityID == model.UserId && s.Status == "PendingStore" && model.Role == "ApprovedStore").First();
+                    PromotedStore.Status = "ApprovedStore";
+                    customContext.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Not Store");
+                }
 
-            return result.Succeeded ? string.Empty : "Sonething went wrong";
+            }
+                return result.Succeeded ? string.Empty : "Sonething went wrong";
         }
     }
 }

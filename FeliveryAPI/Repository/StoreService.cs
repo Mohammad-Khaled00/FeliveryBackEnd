@@ -30,6 +30,7 @@ namespace FeliveryAPI.Repository
             {
                 RestaurantsList = customContext.Restaurants.ToList();
             }
+
             using (var customContext = Context.CreateDbContext())
             {
                 foreach (var rest in RestaurantsList)
@@ -86,6 +87,7 @@ namespace FeliveryAPI.Repository
                     throw new Exception(res.Message);
                 }
                 Data.Restaurant.SecurityID = res.Id;
+                Data.Restaurant.Status = res.Roles[0];
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -188,6 +190,39 @@ namespace FeliveryAPI.Repository
                 signingCredentials: signingCredentials);
 
             return jwtSecurityToken;
+        }
+        public async Task<IEnumerable<Restaurant>> Search(string name)
+        {
+            using var customContext = Context.CreateDbContext();
+
+            IQueryable<Restaurant> query = customContext.Restaurants;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+            return await query.ToListAsync();
+        }
+
+        public List<Restaurant> PendingStore()
+        {
+            List<Restaurant> RestaurantsList = new();
+
+            using (var customContext = Context.CreateDbContext())
+            {             
+                RestaurantsList = customContext.Restaurants.Where(s => s.Status == "PendingStore").ToList();
+            }
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var rest in RestaurantsList)
+                {
+                    rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
+
+                }
+            }
+
+            return RestaurantsList;
         }
     }
 }

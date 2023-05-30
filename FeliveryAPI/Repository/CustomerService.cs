@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using NuGet.Versioning;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -68,9 +69,14 @@ namespace FeliveryAPI.Repository
         }
         public void Delete(int id)
         {
-            using var customContext = Context.CreateDbContext();
-            customContext.Customers.Remove(customContext.Customers.Find(id));
-            customContext.SaveChanges();
+            using (var customContext = Context.CreateDbContext())
+            {
+                if (customContext.Customers.Find(id) != null)
+                {
+                    customContext.Customers.Remove(customContext.Customers.Find(id));
+                    customContext.SaveChanges();
+                }
+            }
         }
 
         public async Task<AuthModel> Register(RegData Data)

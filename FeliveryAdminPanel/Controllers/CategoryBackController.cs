@@ -38,6 +38,7 @@ namespace BackEndRestaurant.Controllers
         }
         public async Task<IActionResult> Create()
         {
+
             HttpClient client = _api.Initial();
             //Restaurant drop down list
             var restaurantList = await client.GetFromJsonAsync<List<Restaurant>>("api/Store");
@@ -59,12 +60,19 @@ namespace BackEndRestaurant.Controllers
         }
         public async Task<ActionResult> Edit(int id)
         {
+            Category Category = new Category();
             HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/Category/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                Category = JsonConvert.DeserializeObject<Category>(data);
+            }
             //Restaurant drop down list
             var restaurantList = await client.GetFromJsonAsync<List<Restaurant>>("api/Store");
             SelectList RestaurantsSelectList = new SelectList(restaurantList, "Id", "Name");
             ViewBag.RestaurantList = RestaurantsSelectList;
-            return View();
+            return View(Category);
         }
         [HttpPost]
         public async Task<ActionResult> Edit(int id, Category category)
@@ -79,9 +87,17 @@ namespace BackEndRestaurant.Controllers
             
             return View(category);
         }
-        public ActionResult Delete(int? id)
+        public async Task <ActionResult> Delete(int? id)
         {
-            return View();
+            Category Category = new Category();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/Category/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                Category = JsonConvert.DeserializeObject<Category>(data);
+            }
+            return View(Category);
         }
 
         [HttpPost]

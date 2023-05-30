@@ -24,19 +24,19 @@ namespace BackEndRestaurant.Controllers
                 return View();
             }      
         }
-        //[HttpGet]
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    Order order = new Order();
-        //    HttpClient client = _api.Initial();
-        //    HttpResponseMessage res = await client.GetAsync($"api/Order/{id}");
-        //    if (res.IsSuccessStatusCode)
-        //    {
-        //        string data = res.Content.ReadAsStringAsync().Result;
-        //        order = JsonConvert.DeserializeObject<Order>(data);
-        //    }
-        //    return View(order);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            Order order = new Order();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/Order/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                order = JsonConvert.DeserializeObject<Order>(data);
+            }
+            return View(order);
+        }
         //public async Task<IActionResult> Create()
         //{
         //    HttpClient client = _api.Initial();
@@ -49,7 +49,7 @@ namespace BackEndRestaurant.Controllers
         //    SelectList CustomerSelectList = new SelectList(CustomerList, "Id", "Name");
         //    ViewBag.CustomerList = CustomerSelectList;
         //    return View();
-          
+
         //}  
         //[HttpPost]
         //public async Task<IActionResult> Create(Order order)
@@ -80,17 +80,27 @@ namespace BackEndRestaurant.Controllers
         //{      
         //    HttpClient client = _api.Initial();
         //    HttpResponseMessage res = await client.PutAsJsonAsync<Order>("api/Order", order);
-              
+
         //        if (res.IsSuccessStatusCode)
         //        {
         //            return RedirectToAction("index");
         //        }
-            
+
         //    return View(order);
         //}
-        public ActionResult Delete(int? id)
+
+
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            Order order = new Order();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/Order/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                order = JsonConvert.DeserializeObject<Order>(data);
+            }
+            return View(order);
         }
 
         [HttpPost]

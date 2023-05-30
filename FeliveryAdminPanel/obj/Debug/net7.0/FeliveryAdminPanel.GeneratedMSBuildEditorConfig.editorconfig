@@ -88,16 +88,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/OrderBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/OrderBack/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/RoleBack/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZUJhY2tcRWRpdC5jc2h0bWw=
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/PendingStoreBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/RoleBack/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUm9sZUJhY2tcSW5kZXguY3NodG1s
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/PendingStoreBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/PendingStoreBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/PendingStoreBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/Shared/Error.cshtml]
@@ -110,6 +122,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/StoreBack/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/StoreBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/StoreBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/ITI/Graduation Project/FeliveryBackEndGit/FeliveryBackgit/FeliveryAdminPanel/Views/StoreBack/Edit.cshtml]

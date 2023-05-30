@@ -60,17 +60,20 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdentityUser.Id)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
-                
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    <br>
+                <a asp-action="Approve" asp-route-id="@item.SecurityID" class="btn btn-success">Approve</a>
+                <br>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Reject</a>
+               
             </td>
         </tr>
 }

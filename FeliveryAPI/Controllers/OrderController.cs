@@ -26,7 +26,7 @@ namespace FeliveryAPI.Controllers
             return OrderRepo.GetDetails(id);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
             Order order = OrderRepo.GetDetails(id);

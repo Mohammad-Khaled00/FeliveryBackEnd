@@ -72,28 +72,36 @@ namespace BackEndCategory.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            HttpClient Client = _api.Initial();
+
+            MenuItem MenuItemList = new MenuItem();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/MenuItem/GetById/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                MenuItemList = JsonConvert.DeserializeObject<MenuItem>(data);
+            }
             try
             {
                 //Category drop down list
-                var categoryList = await Client.GetFromJsonAsync<List<Category>>("api/Category");
+                var categoryList = await client.GetFromJsonAsync<List<Category>>("api/Category");
                 SelectList CategoriesSelectList = new SelectList(categoryList, "Id", "Name");
 
                 ViewBag.CategoryList = CategoriesSelectList;
 
                 //Restaurant drop down list
-                var restaurantList = await Client.GetFromJsonAsync<List<Restaurant>>("api/Store");
+                var restaurantList = await client.GetFromJsonAsync<List<Restaurant>>("api/Store");
                 SelectList RestaurantsSelectList = new SelectList(restaurantList, "Id", "Name");
 
                 ViewBag.RestaurantList = RestaurantsSelectList;
 
-                return View();
+                return View(MenuItemList);
             }
             catch (Exception e)
             {
             }
 
-            return View();
+            return View(MenuItemList);
         }
 
         [HttpPost]
@@ -108,7 +116,20 @@ namespace BackEndCategory.Controllers
 
             return View(MenuItemList);
         }
-
+        public async Task<ActionResult> Delete(int? id)
+        {
+            MenuItem MenuItemList = new MenuItem();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/MenuItem/GetById/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                MenuItemList = JsonConvert.DeserializeObject<MenuItem>(data);
+            }
+            return View(MenuItemList);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             HttpClient Client = _api.Initial();
@@ -119,5 +140,11 @@ namespace BackEndCategory.Controllers
                 }
             return View();
         }
-    }
+
+
+       
+
+
+
+}
 }

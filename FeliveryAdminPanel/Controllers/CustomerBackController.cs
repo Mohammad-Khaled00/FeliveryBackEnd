@@ -1,7 +1,6 @@
 ﻿
 using FeliveryAdminPanel.Helpers;
 using FeliveryAPI.Data;
-using FeliveryAPI.Migrations;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -81,13 +80,21 @@ namespace BackEndRestaurant.Controllers
                 }        
             return View(customer);
         }
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            Customer customer = new Customer();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/Customer/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                string data = res.Content.ReadAsStringAsync().Result;
+                customer = JsonConvert.DeserializeObject<Customer>(data);
+            }
+            return View(customer);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id,Customer customer)
         {
             HttpClient Client = _api.Initial();
             HttpResponseMessage res = await Client.DeleteAsync($"api/Customer/{id}");
