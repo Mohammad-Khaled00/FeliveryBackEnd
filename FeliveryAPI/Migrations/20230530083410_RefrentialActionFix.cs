@@ -7,7 +7,7 @@
 namespace FeliveryAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class ODetails : Migration
+    public partial class RefrentialActionFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,32 +15,32 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3bd3c3e1-23ab-4cce-b7f0-467174024f46");
+                keyValue: "4254064c-b31c-47f6-96a5-a128b9113b47");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "578815d9-ea84-4b96-bcab-4db9d97c1aef");
+                keyValue: "96802d1d-2323-4361-add2-06bed46bca4f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "a12bb616-348d-47e3-baa4-6995e4114c7c");
+                keyValue: "c90876d2-6446-4915-b390-573b388c6901");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "fbfd8f2b-3986-4065-8efb-744da10ff57a");
+                keyValue: "f1053c82-19f2-4e3a-a01a-6373a21e6a06");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0e10af8e-198c-45a5-8ddb-6cca87ff74a2", "1", "Admin", "Admin" },
-                    { "8f2ffa50-2e81-41de-bf01-8eb6f33b3fe1", "2", "ApprovedStore", "ApprovedStore" },
-                    { "93ecd10b-3898-444f-a671-18d857235c72", "3", "PendingStore", "PendingStore" },
-                    { "f9b951c8-1a03-45b2-ae9b-c8d4c458138f", "4", "Customer", "Customer" }
+                    { "285f30ac-0055-4f88-b247-e48eea1e95e2", "1", "Admin", "Admin" },
+                    { "3b66d28b-47d6-41e1-a639-05bcb836f85f", "3", "PendingStore", "PendingStore" },
+                    { "4df8ff84-5657-429b-9fee-1519f208a2ca", "2", "ApprovedStore", "ApprovedStore" },
+                    { "8cc85504-7982-4e50-a075-d7ec5a3c4bb0", "4", "Customer", "Customer" }
                 });
         }
 
@@ -50,32 +50,32 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "0e10af8e-198c-45a5-8ddb-6cca87ff74a2");
+                keyValue: "285f30ac-0055-4f88-b247-e48eea1e95e2");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "8f2ffa50-2e81-41de-bf01-8eb6f33b3fe1");
+                keyValue: "3b66d28b-47d6-41e1-a639-05bcb836f85f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "93ecd10b-3898-444f-a671-18d857235c72");
+                keyValue: "4df8ff84-5657-429b-9fee-1519f208a2ca");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "f9b951c8-1a03-45b2-ae9b-c8d4c458138f");
+                keyValue: "8cc85504-7982-4e50-a075-d7ec5a3c4bb0");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "3bd3c3e1-23ab-4cce-b7f0-467174024f46", "3", "PendingStore", "PendingStore" },
-                    { "578815d9-ea84-4b96-bcab-4db9d97c1aef", "4", "Customer", "Customer" },
-                    { "a12bb616-348d-47e3-baa4-6995e4114c7c", "1", "Admin", "Admin" },
-                    { "fbfd8f2b-3986-4065-8efb-744da10ff57a", "2", "ApprovedStore", "ApprovedStore" }
+                    { "4254064c-b31c-47f6-96a5-a128b9113b47", "2", "ApprovedStore", "ApprovedStore" },
+                    { "96802d1d-2323-4361-add2-06bed46bca4f", "1", "Admin", "Admin" },
+                    { "c90876d2-6446-4915-b390-573b388c6901", "3", "PendingStore", "PendingStore" },
+                    { "f1053c82-19f2-4e3a-a01a-6373a21e6a06", "4", "Customer", "Customer" }
                 });
         }
     }

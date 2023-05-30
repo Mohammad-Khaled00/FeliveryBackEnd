@@ -17,8 +17,6 @@ namespace FeliveryAPI.Models
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
         public virtual Restaurant? Restaurant { get; set; }
-/*        [NotMapped]
-        public virtual List<Offer?> Offers { get; set; }*/
         [ForeignKey(nameof(Customer))]
         public int CustomerID { get; set; }
         public virtual Customer? Customer { get; set; }

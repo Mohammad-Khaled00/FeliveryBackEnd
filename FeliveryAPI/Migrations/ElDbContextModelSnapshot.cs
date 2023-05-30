@@ -105,39 +105,6 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("MenuItems");
                 });
 
-            modelBuilder.Entity("FeliveryAPI.Models.Offer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OfferImg")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("OfferPrice")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("RestaurantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RestaurantId");
-
-                    b.ToTable("Offers");
-                });
-
             modelBuilder.Entity("FeliveryAPI.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -217,7 +184,6 @@ namespace FeliveryAPI.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StoreImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -259,28 +225,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2a6800e1-d24d-45c2-a558-883f85e81158",
+                            Id = "91f328b3-36d7-4d13-94f0-3e8c57f5f192",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "f21f029a-9691-4417-b7cf-4dd9dac84c8d",
+                            Id = "a66d1440-f29f-45b4-b2ae-2f61decbe965",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "81bd0896-6f8e-4485-96b1-80f5c16463d9",
+                            Id = "060ec780-1e9a-4cbf-aed2-c6dd7dafdeb3",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "993831a0-23fe-46dc-b739-3c760f2b843f",
+                            Id = "1a1f944c-a37b-4098-b414-c6a104dc768d",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -486,13 +452,6 @@ namespace FeliveryAPI.Migrations
                     b.Navigation("Restaurant");
                 });
 
-            modelBuilder.Entity("FeliveryAPI.Models.Offer", b =>
-                {
-                    b.HasOne("FeliveryAPI.Models.Restaurant", null)
-                        .WithMany("Offers")
-                        .HasForeignKey("RestaurantId");
-                });
-
             modelBuilder.Entity("FeliveryAPI.Models.Order", b =>
                 {
                     b.HasOne("FeliveryAPI.Models.Customer", "Customer")
@@ -604,8 +563,6 @@ namespace FeliveryAPI.Migrations
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
                 {
                     b.Navigation("MenuItems");
-
-                    b.Navigation("Offers");
 
                     b.Navigation("Orders");
                 });

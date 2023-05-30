@@ -7,7 +7,7 @@
 namespace FeliveryAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class ImageUploading : Migration
+    public partial class IMGNotMandatory : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,26 +15,26 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "56c1adcd-f7ae-45fc-8cd9-382dfd18f66b");
+                keyValue: "285f30ac-0055-4f88-b247-e48eea1e95e2");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "82742b0f-54e7-4412-bda5-9dbcc84df667");
+                keyValue: "3b66d28b-47d6-41e1-a639-05bcb836f85f");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "c2e683a8-2afc-4bcc-a849-94eadf3fa84c");
+                keyValue: "4df8ff84-5657-429b-9fee-1519f208a2ca");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "e69df621-cc66-4917-9c5a-586cc43f39e8");
+                keyValue: "8cc85504-7982-4e50-a075-d7ec5a3c4bb0");
 
             migrationBuilder.AlterColumn<string>(
-                name: "MenuItemImg",
-                table: "MenuItems",
+                name: "StoreImg",
+                table: "Restaurants",
                 type: "nvarchar(max)",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -45,10 +45,10 @@ namespace FeliveryAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2a6800e1-d24d-45c2-a558-883f85e81158", "1", "Admin", "Admin" },
-                    { "81bd0896-6f8e-4485-96b1-80f5c16463d9", "3", "PendingStore", "PendingStore" },
-                    { "993831a0-23fe-46dc-b739-3c760f2b843f", "4", "Customer", "Customer" },
-                    { "f21f029a-9691-4417-b7cf-4dd9dac84c8d", "2", "ApprovedStore", "ApprovedStore" }
+                    { "060ec780-1e9a-4cbf-aed2-c6dd7dafdeb3", "3", "PendingStore", "PendingStore" },
+                    { "1a1f944c-a37b-4098-b414-c6a104dc768d", "4", "Customer", "Customer" },
+                    { "91f328b3-36d7-4d13-94f0-3e8c57f5f192", "1", "Admin", "Admin" },
+                    { "a66d1440-f29f-45b4-b2ae-2f61decbe965", "2", "ApprovedStore", "ApprovedStore" }
                 });
         }
 
@@ -58,26 +58,26 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "2a6800e1-d24d-45c2-a558-883f85e81158");
+                keyValue: "060ec780-1e9a-4cbf-aed2-c6dd7dafdeb3");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "81bd0896-6f8e-4485-96b1-80f5c16463d9");
+                keyValue: "1a1f944c-a37b-4098-b414-c6a104dc768d");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "993831a0-23fe-46dc-b739-3c760f2b843f");
+                keyValue: "91f328b3-36d7-4d13-94f0-3e8c57f5f192");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "f21f029a-9691-4417-b7cf-4dd9dac84c8d");
+                keyValue: "a66d1440-f29f-45b4-b2ae-2f61decbe965");
 
             migrationBuilder.AlterColumn<string>(
-                name: "MenuItemImg",
-                table: "MenuItems",
+                name: "StoreImg",
+                table: "Restaurants",
                 type: "nvarchar(max)",
                 nullable: false,
                 defaultValue: "",
@@ -90,10 +90,10 @@ namespace FeliveryAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "56c1adcd-f7ae-45fc-8cd9-382dfd18f66b", "4", "Customer", "Customer" },
-                    { "82742b0f-54e7-4412-bda5-9dbcc84df667", "1", "Admin", "Admin" },
-                    { "c2e683a8-2afc-4bcc-a849-94eadf3fa84c", "3", "PendingStore", "PendingStore" },
-                    { "e69df621-cc66-4917-9c5a-586cc43f39e8", "2", "ApprovedStore", "ApprovedStore" }
+                    { "285f30ac-0055-4f88-b247-e48eea1e95e2", "1", "Admin", "Admin" },
+                    { "3b66d28b-47d6-41e1-a639-05bcb836f85f", "3", "PendingStore", "PendingStore" },
+                    { "4df8ff84-5657-429b-9fee-1519f208a2ca", "2", "ApprovedStore", "ApprovedStore" },
+                    { "8cc85504-7982-4e50-a075-d7ec5a3c4bb0", "4", "Customer", "Customer" }
                 });
         }
     }

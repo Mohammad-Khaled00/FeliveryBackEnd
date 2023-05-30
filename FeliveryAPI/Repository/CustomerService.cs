@@ -1,5 +1,4 @@
 ﻿using FeliveryAPI.Data;
-using FeliveryAPI.Migrations;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -54,9 +53,22 @@ namespace FeliveryAPI.Repository
         }
         public void Delete(int id)
         {
+            if (id == 0)
+            {
+                throw new Exception("ID is Invalid");
+            }
             using var customContext = Context.CreateDbContext();
-            customContext.Customers.Remove(customContext.Customers.Find(id));
-            customContext.SaveChanges();
+            if (customContext.Customers.Find(id) != null)
+            {
+                var CustomerDetails = customContext.Customers.Find(id);
+                customContext.Customers.Remove(customContext.Customers.Find(id));
+                customContext.Users.Remove(customContext.Users.Find(CustomerDetails.SecurityID));
+                customContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Customer Not Found");
+            }
         }
 
         public async Task<AuthModel> Register(RegData Data)
@@ -69,7 +81,7 @@ namespace FeliveryAPI.Repository
                 var res = await RegisterAsync(Data.Model);
                 if (res.Message != null)
                 {
-                    throw new Exception("An error occurred.");
+                    throw new Exception(res.Message);
                 }
                 Data.Customer.SecurityID = res.Id;
                 Insert(Data.Customer);

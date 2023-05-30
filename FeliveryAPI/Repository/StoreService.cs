@@ -51,6 +51,37 @@ namespace FeliveryAPI.Repository
 
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
+        {
+            List<Order> Orders;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID).ToListAsync();
+            }
+            return Orders;
+        }
+
+
+        public async Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID)
+        {
+            List<MenuItem> MenuItems;
+            using (var customContext = Context.CreateDbContext())
+            {
+                MenuItems = await customContext.MenuItems.Include(m => m.Category).Where(m => m.RestaurantID == storeID).ToListAsync();
+            }
+            return MenuItems;
+        }
+
+        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
+        {
+            List<Category> Categories;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
+            }
+            return Categories;
+        }
+
         public void Update(Restaurant restaurant)
         {
             using var customContext = Context.CreateDbContext();
@@ -61,9 +92,22 @@ namespace FeliveryAPI.Repository
         }
         public void Delete(int id)
         {
+            if (id == 0)
+            {
+                throw new Exception("ID is Invalid");
+            }
             using var customContext = Context.CreateDbContext();
-            customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
-            customContext.SaveChanges();
+            if (customContext.Restaurants.Find(id) != null)
+            {
+                var RestaurantDetails = customContext.Restaurants.Find(id);
+                customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
+                customContext.Users.Remove(customContext.Users.Find(RestaurantDetails.SecurityID));
+                customContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Restaurant Not Found");
+            }
         }
 
         public async Task<AuthModel> Register(RegData Data)
@@ -81,9 +125,9 @@ namespace FeliveryAPI.Repository
                 {
                     throw new Exception(res.Message);
                 }
-                var Img = UploadFile(Data);
+                //string Img = UploadFile(Data.Image);
                 Data.Restaurant.SecurityID = res.Id;
-                Data.Restaurant.StoreImg = Img;
+                //Data.Restaurant.StoreImg = Img;
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -188,35 +232,24 @@ namespace FeliveryAPI.Repository
             return jwtSecurityToken;
         }
 
-
-
-        //            string Filename = source.FileName;
-        //            string Filepath = GetFilePath(Filename);
-        //            if (!System.IO.Directory.Exists(Filepath))
-        //            {
-        //                System.IO.Directory.CreateDirectory(Filepath);
-        //            }
-        //            string imagepath = Filepath + "\\image.png";
-        //            if (System.IO.File.Exists(imagepath))
-        //            {
-        //                System.IO.File.Delete(imagepath);
-        //            }
-        //            using (FileStream stream = System.IO.File.Create(imagepath))
-        //            {
-        //                await source.CopyToAsync(stream);
-        //                Results = true;
-        //            }
-
-        private string UploadFile(RegData Data)
+        private string UploadFile(IFormFile Img)
         {
-            if (Data.Image!=null)
+            if (Img != null)
             {
-                string UploadDir = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\");
-                string fileName = Guid.NewGuid().ToString() + "-" + Data.Image.FileName;
-                string filePath = Path.Combine(UploadDir, fileName);
+                string fileName = Guid.NewGuid().ToString() + "-" + Img.FileName;
+                //string UploadDir = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", Img.FileName);
+                //string filePath = Path.Combine(UploadDir, fileName);
+                string filePath = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", fileName);
+                string imagepath = filePath + "\\StoreImg.png";
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+                if (Directory.Exists(imagepath))
+                    Directory.Delete(imagepath);
+                //using FileStream stream = System.IO.File.Create(imagepath);
+                //await file.CopyToAsync(stream);
                 using (FileStream fileStream = new(filePath, FileMode.Create))
                 {
-                    Data.Image.CopyTo(fileStream);
+                    Img.CopyTo(fileStream);
                 }
                 return filePath;
             }

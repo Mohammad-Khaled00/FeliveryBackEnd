@@ -28,13 +28,7 @@ namespace FeliveryAPI.Controllers
         public ActionResult Delete(int id)
         {
             CustomerRepo.Delete(id);
-
-            if (id == 0)
-            {
-                return NotFound();
-            }
-            CustomerRepo.Delete(id);
-            return Ok();
+            return Ok("Customer Deleted Successfully");
         }
         [HttpPut]
         public ActionResult Put(Customer customer)
