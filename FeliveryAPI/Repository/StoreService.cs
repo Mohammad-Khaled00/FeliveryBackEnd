@@ -54,13 +54,21 @@ namespace FeliveryAPI.Repository
         public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
         {
             List<Order> Orders;
+            List<OrderDetails> ODetails;
             using (var customContext = Context.CreateDbContext())
             {
                 Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                    foreach (var Detail in ODetails)
+                    {
+                        order.Details.Add(Detail);
+                    }
+                }
             }
             return Orders;
         }
-
 
         public async Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID)
         {

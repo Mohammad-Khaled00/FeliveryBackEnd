@@ -31,7 +31,7 @@ namespace FeliveryAPI.Controllers
             return StoreRepo.GetDetails(id);
         }
 
-        [HttpGet("{OstoreID}")]
+        [HttpGet("OstoreID/{OstoreID}")]
         public async Task<IActionResult> GetOrdersBystoreIDAsync(int OstoreID)
         {
             var orders = await StoreRepo.GetOrdersBystoreID(OstoreID);
@@ -39,7 +39,7 @@ namespace FeliveryAPI.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("{MstoreID}")]
+        [HttpGet("MstoreID/{MstoreID}")]
         public async Task<IActionResult> GetmenuitemsBystoreIDAsync(int MstoreID)
         {
             var menuitems = await StoreRepo.GetmenuitemsBystoreID(MstoreID);

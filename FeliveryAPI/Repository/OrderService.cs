@@ -22,7 +22,13 @@ namespace FeliveryAPI.Repository
         public Order? GetDetails(int id)
         {
             using var customContext = Context.CreateDbContext();
-            return customContext.Orders.Find(id);
+            var DetailsList = customContext.OrderDetails.Where(o => o.OrderId == id).ToList();
+            var order = customContext.Orders.Find(id);
+            foreach (var Detail in DetailsList)
+            {
+                order.Details.Add(Detail);
+            }
+            return order;
         }
         public void Insert(Order order)
         {
