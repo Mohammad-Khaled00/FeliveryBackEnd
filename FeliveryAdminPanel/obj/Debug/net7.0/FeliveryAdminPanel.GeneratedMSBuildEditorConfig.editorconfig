@@ -1,0 +1,153 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = FeliveryAdminPanel
+build_property.RootNamespace = FeliveryAdminPanel
+build_property.ProjectDir = C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAdminPanel\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\Mohamed Khaled\Desktop\GP\Project\BackEnd\FeliveryAdminPanel
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CategoryBack/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlCYWNrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CategoryBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlCYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CategoryBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlCYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CategoryBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlCYWNrXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CategoryBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlCYWNrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CustomerBack/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJCYWNrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CustomerBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJCYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CustomerBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJCYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CustomerBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJCYWNrXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/CustomerBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3VzdG9tZXJCYWNrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/MenuItemBack/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudUl0ZW1CYWNrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/MenuItemBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudUl0ZW1CYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/MenuItemBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudUl0ZW1CYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/MenuItemBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudUl0ZW1CYWNrXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/MenuItemBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudUl0ZW1CYWNrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/OrderBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/OrderBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/OrderBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJCYWNrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/PendingStoreBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/PendingStoreBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/PendingStoreBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/PendingStoreBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVuZGluZ1N0b3JlQmFja1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/StoreBack/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/StoreBack/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/StoreBack/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/StoreBack/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/StoreBack/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvcmVCYWNrXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mohamed Khaled/Desktop/GP/Project/BackEnd/FeliveryAdminPanel/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-25sktbgr1p

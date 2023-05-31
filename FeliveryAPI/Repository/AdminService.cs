@@ -37,7 +37,17 @@ namespace FeliveryAPI.Repository
             }
 
             var result = await _userManager.AddToRoleAsync(user, model.Role);
-
+            using var customContext = Context.CreateDbContext();
+            try
+            {
+                var PromotedStore = customContext.Restaurants.Where(s => s.SecurityID == model.UserId && s.Status == "PendingStore" && model.Role == "ApprovedStore").First();
+                PromotedStore.Status = "ApprovedStore";
+                customContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Not Store");
+            }
             return result.Succeeded ? string.Empty : "Sonething went wrong";
         }
     }

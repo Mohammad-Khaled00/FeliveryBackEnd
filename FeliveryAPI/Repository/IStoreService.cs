@@ -5,6 +5,7 @@ namespace FeliveryAPI.Repository
     public interface IStoreService : IRepository<Restaurant> , IUserService, IStatisticsService
     {
         Task<AuthModel> Register(RegData Data);
-        //public void Stastics(RegData Data);
+        Task<IEnumerable<Restaurant>> Search(string Name);
+        public List<Restaurant> PendingStore();
     }
 }

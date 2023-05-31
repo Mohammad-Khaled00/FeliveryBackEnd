@@ -104,6 +104,7 @@ namespace FeliveryAPI.Repository
                 }
                 //string Img = UploadFile(Data.Image);
                 Data.Restaurant.SecurityID = res.Id;
+                Data.Restaurant.Status = res.Roles[0];
                 //Data.Restaurant.StoreImg = Img;
                 Insert(Data.Restaurant);
                 transaction.Complete();
@@ -125,6 +126,40 @@ namespace FeliveryAPI.Repository
         }
 
         //Stastics--
+
+        public async Task<IEnumerable<Restaurant>> Search(string name)
+        {
+            using var customContext = Context.CreateDbContext();
+
+            IQueryable<Restaurant> query = customContext.Restaurants;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+            return await query.ToListAsync();
+        }
+
+        public List<Restaurant> PendingStore()
+        {
+            List<Restaurant> RestaurantsList = new();
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                RestaurantsList = customContext.Restaurants.Where(s => s.Status == "PendingStore").ToList();
+            }
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var rest in RestaurantsList)
+                {
+                    rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
+
+                }
+            }
+
+            return RestaurantsList;
+        }
 
         public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
         {

@@ -33,6 +33,7 @@ namespace FeliveryAPI.Models
         public string Description { get; set; }
         public string? StoreImg { get; set; }
         public StoreType Type { get; set; }
+        public string? Status { get; set; }
         public virtual IdentityUser? IdentityUser { get; set; }
         public virtual ICollection<MenuItem?> MenuItems { get; set; }
         public virtual ICollection<Order?> Orders { get; set; }
