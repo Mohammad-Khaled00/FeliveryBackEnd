@@ -5,6 +5,7 @@ namespace FeliveryAPI.Repository
     public interface IStatisticsService
     {
         public Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID);
+        public Task<IEnumerable<Order>> GetFinshedOrdersBystoreID(int storeID);
         public Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID);
         public Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID);
         public Task<int> TotalEarnings(int storeID);

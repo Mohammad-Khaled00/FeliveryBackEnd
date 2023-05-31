@@ -38,6 +38,14 @@ namespace FeliveryAPI.Controllers
             return Ok(orders);
         }
 
+        [HttpGet("FinshedOrders/{OstoreID}")]
+        public async Task<IActionResult> GetFinshedOrdersBystoreID(int OstoreID)
+        {
+            var orders = await StoreRepo.GetFinshedOrdersBystoreID(OstoreID);
+
+            return Ok(orders);
+        }
+
         [HttpGet("MstoreID/{MstoreID}")]
         public async Task<IActionResult> GetmenuitemsBystoreIDAsync(int MstoreID)
         {
