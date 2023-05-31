@@ -3,6 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FeliveryAPI.Models
 {
+/*    public enum Status
+    {
+        Pending,
+        Done
+    }*/
     public class Order
     {
         [Key]
@@ -11,6 +16,8 @@ namespace FeliveryAPI.Models
         public int TotalPrice { get; set; }
         [Required]
         public string Address { get; set; }
+        //public Status? Status { get; set; }
+        public bool? Status { get; set; }
         [Required]
         public virtual ICollection<OrderDetails> Details { get; set; }
 

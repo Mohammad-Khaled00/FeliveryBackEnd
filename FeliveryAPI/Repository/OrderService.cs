@@ -33,6 +33,7 @@ namespace FeliveryAPI.Repository
         public void Insert(Order order)
         {
             using var customContext = Context.CreateDbContext();
+            order.Status = false;
             customContext.Orders.Add(order);
             customContext.SaveChanges();
         }

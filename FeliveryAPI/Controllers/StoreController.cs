@@ -1,7 +1,6 @@
 ﻿using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.Http.Filters;
 
 namespace FeliveryAPI.Controllers
 {
@@ -47,7 +46,35 @@ namespace FeliveryAPI.Controllers
             return Ok(menuitems);
         }
 
-    [HttpDelete("{id}")]
+        [HttpGet("TotalEarnings/{storeID}")]
+        public async Task<IActionResult> TotalEarnings(int storeID)
+        {
+            var earnings = await StoreRepo.TotalEarnings( storeID);
+            return Ok(earnings);
+        }
+
+        [HttpGet("PendingOrders/{storeID}")]
+        public async Task<IActionResult> PendingOrders(int storeID)
+        {
+            var orders = await StoreRepo.PendingOrders(storeID);
+            return Ok(orders);
+        }
+
+        [HttpGet("DeliveredOrders/{storeID}")]
+        public async Task<IActionResult> DeliveredOrders(int storeID)
+        {
+            var orders = await StoreRepo.DeliveredOrders(storeID);
+            return Ok(orders);
+        }
+
+        [HttpPut("DoneOrder/{orderID}")]
+        public ActionResult DoneOrder(int orderID)
+        {
+            StoreRepo.DoneOrder(orderID);
+            return Ok("Order Is Done");
+        }
+
+        [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
             StoreRepo.Delete(id);

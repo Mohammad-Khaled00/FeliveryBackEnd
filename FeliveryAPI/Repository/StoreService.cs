@@ -1,12 +1,9 @@
-﻿using Azure.Core;
-using FeliveryAPI.Data;
+﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.IO;
 using System.Security.Claims;
 using System.Text;
 using System.Transactions;
@@ -34,6 +31,8 @@ namespace FeliveryAPI.Repository
 
             using (var customContext = Context.CreateDbContext())
             {
+                //ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                //status
                 RestaurantsList = customContext.Restaurants.ToList();
             }
 
@@ -48,46 +47,6 @@ namespace FeliveryAPI.Repository
                 RestaurantDetails = customContext.Restaurants.Find(id);
             }
             return RestaurantDetails;
-
-        }
-
-        public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
-        {
-            List<Order> Orders;
-            List<OrderDetails> ODetails;
-            using (var customContext = Context.CreateDbContext())
-            {
-                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID).ToListAsync();
-                foreach (var order in Orders)
-                {
-                    ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
-                    foreach (var Detail in ODetails)
-                    {
-                        order.Details.Add(Detail);
-                    }
-                }
-            }
-            return Orders;
-        }
-
-        public async Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID)
-        {
-            List<MenuItem> MenuItems;
-            using (var customContext = Context.CreateDbContext())
-            {
-                MenuItems = await customContext.MenuItems.Include(m => m.Category).Where(m => m.RestaurantID == storeID).ToListAsync();
-            }
-            return MenuItems;
-        }
-
-        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
-        {
-            List<Category> Categories;
-            using (var customContext = Context.CreateDbContext())
-            {
-                Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
-            }
-            return Categories;
         }
 
         public void Update(Restaurant restaurant)
@@ -155,7 +114,90 @@ namespace FeliveryAPI.Repository
             }
         }
 
-        //-------
+        //Stastics--
+
+        public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
+        {
+            List<Order> Orders;
+            List<OrderDetails> ODetails;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == false).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                    foreach (var Detail in ODetails)
+                    {
+                        order.Details.Add(Detail);
+                    }
+                }
+            }
+            return Orders;
+        }
+
+        public async Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID)
+        {
+            List<MenuItem> MenuItems;
+            using (var customContext = Context.CreateDbContext())
+            {
+                MenuItems = await customContext.MenuItems.Include(m => m.Category).Where(m => m.RestaurantID == storeID).ToListAsync();
+            }
+            return MenuItems;
+        }
+
+        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
+        {
+            List<Category> Categories;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
+            }
+            return Categories;
+        }
+        public async Task <int> TotalEarnings(int storeID)
+        {
+            List<Order> Orders;
+            int Earnings = 0;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == true).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    Earnings += order.TotalPrice;
+                }
+            }
+            return Earnings;
+        }
+
+        public async Task<int> PendingOrders(int storeID)
+        {
+            List<Order> Orders;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == false).ToListAsync();
+            }
+            return Orders.Count;
+        }
+
+        public async Task<int> DeliveredOrders(int storeID)
+        {
+            List<Order> Orders;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == true).ToListAsync();
+            }
+            return Orders.Count;
+        }
+
+        public void DoneOrder(int orderID)
+        {
+            using var customContext = Context.CreateDbContext();
+            var FinishedOrder = customContext.Orders.Where(o => o.Id == orderID).First();
+            FinishedOrder.Status = true;
+            customContext.SaveChanges();
+        }
+
+        //Middle Functions--
 
         public void Insert(Restaurant restaurant)
         {
