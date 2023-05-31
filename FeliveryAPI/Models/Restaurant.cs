@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Storage;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,7 +13,6 @@ namespace FeliveryAPI.Models
         public Restaurant()
         {
             MenuItems = new List<MenuItem>();
-        
             Orders = new List<Order>();
             Categories = new List<Category>();
         }
@@ -23,10 +20,8 @@ namespace FeliveryAPI.Models
 
         [Key]
         public int Id { get; set; }
-
         [ForeignKey(nameof(IdentityUser))]
         public string? SecurityID { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
@@ -36,7 +31,7 @@ namespace FeliveryAPI.Models
         [Required]
         public int MobileNumber { get; set; }
         public string Description { get; set; }
-        public string StoreImg { get; set; }
+        public string? StoreImg { get; set; }
         public StoreType Type { get; set; }
         public string? Status { get; set; }
         public virtual IdentityUser? IdentityUser { get; set; }

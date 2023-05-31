@@ -10,7 +10,6 @@ namespace FeliveryAPI.Models
         {
             Restaurant? Restaurant = new Restaurant();
         }
-
         [Key]
         [HiddenInput]
         public int Id { get; set; }
@@ -18,7 +17,6 @@ namespace FeliveryAPI.Models
         public string Name { get; set; }
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
-
         public virtual Restaurant? Restaurant { get; set; }
     }
 }

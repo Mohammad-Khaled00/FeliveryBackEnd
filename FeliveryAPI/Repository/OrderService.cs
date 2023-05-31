@@ -23,32 +23,27 @@ namespace FeliveryAPI.Repository
                 {
                     order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);
                     order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
-
                 }
             }
             return OrdersList;
         }
         public Order? GetDetails(int id)
         {
-
-            var OrderDet= new Order();
-            using (var customContext = Context.CreateDbContext())
+            using var customContext = Context.CreateDbContext();
+            var DetailsList = customContext.OrderDetails.Where(o => o.OrderId == id).ToList();
+            var order = customContext.Orders.Find(id);
+            foreach (var Detail in DetailsList)
             {
-                OrderDet = customContext.Orders.Find(id);
+                order.Details.Add(Detail);
             }
-            using (var customContext = Context.CreateDbContext())
-            {
-
-                OrderDet.Restaurant = customContext.Restaurants.First(r => r.Id == OrderDet.RestaurantID);
-                OrderDet.Customer = customContext.Customers.First(r => r.Id == OrderDet.CustomerID);
-
-            }
-            return OrderDet;
-
+                order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);
+                order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
+                return order;
         }
         public void Insert(Order order)
         {
             using var customContext = Context.CreateDbContext();
+            order.Status = false;
             customContext.Orders.Add(order);
             customContext.SaveChanges();
         }

@@ -14,13 +14,16 @@ namespace FeliveryAPI.Repository
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _IConfiguration;
+        private readonly IWebHostEnvironment _environment;
+
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public StoreService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public StoreService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context, IWebHostEnvironment environment)
         {
             _userManager = userManager;
             _IConfiguration = _IConfig;
             Context = context;
+            _environment = environment;
         }
         public List<Restaurant> GetAll()
         {
@@ -28,18 +31,17 @@ namespace FeliveryAPI.Repository
 
             using (var customContext = Context.CreateDbContext())
             {
+                //ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                //status
                 RestaurantsList = customContext.Restaurants.ToList();
             }
-
             using (var customContext = Context.CreateDbContext())
             {
                 foreach (var rest in RestaurantsList)
                 {
                     rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
-
                 }
             }
-
             return RestaurantsList;
         }
 
@@ -55,20 +57,34 @@ namespace FeliveryAPI.Repository
                 RestaurantDetails.IdentityUser = customContext.Users.First(r => r.Id == RestaurantDetails.SecurityID);
             }
             return RestaurantDetails;
-
         }
 
         public void Update(Restaurant restaurant)
         {
-            using var customContext = Context.CreateDbContext();           
+            using var customContext = Context.CreateDbContext();
+            var SecID = restaurant.SecurityID;
             customContext.Restaurants.Update(restaurant);
+            restaurant.SecurityID = SecID;
             customContext.SaveChanges();
         }
         public void Delete(int id)
         {
+            if (id == 0)
+            {
+                throw new Exception("ID is Invalid");
+            }
             using var customContext = Context.CreateDbContext();
-            customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
-            customContext.SaveChanges();
+            if (customContext.Restaurants.Find(id) != null)
+            {
+                var RestaurantDetails = customContext.Restaurants.Find(id);
+                customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
+                customContext.Users.Remove(customContext.Users.Find(RestaurantDetails.SecurityID));
+                customContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Restaurant Not Found");
+            }
         }
 
         public async Task<AuthModel> Register(RegData Data)
@@ -86,8 +102,10 @@ namespace FeliveryAPI.Repository
                 {
                     throw new Exception(res.Message);
                 }
+                //string Img = UploadFile(Data.Image);
                 Data.Restaurant.SecurityID = res.Id;
                 Data.Restaurant.Status = res.Roles[0];
+                //Data.Restaurant.StoreImg = Img;
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -107,7 +125,143 @@ namespace FeliveryAPI.Repository
             }
         }
 
-        //-------
+        //Stastics--
+
+        public async Task<IEnumerable<Restaurant>> Search(string name)
+        {
+            using var customContext = Context.CreateDbContext();
+
+            IQueryable<Restaurant> query = customContext.Restaurants;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+            return await query.ToListAsync();
+        }
+
+        public List<Restaurant> PendingStore()
+        {
+            List<Restaurant> RestaurantsList = new();
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                RestaurantsList = customContext.Restaurants.Where(s => s.Status == "PendingStore").ToList();
+            }
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var rest in RestaurantsList)
+                {
+                    rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
+
+                }
+            }
+
+            return RestaurantsList;
+        }
+
+        public async Task<IEnumerable<Order>> GetOrdersBystoreID(int storeID)
+        {
+            List<Order> Orders;
+            List<OrderDetails> ODetails;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == false).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                    foreach (var Detail in ODetails)
+                    {
+                        order.Details.Add(Detail);
+                    }
+                }
+            }
+            return Orders;
+        }
+
+        public async Task<IEnumerable<Order>> GetFinshedOrdersBystoreID(int storeID)
+        {
+            List<Order> Orders;
+            List<OrderDetails> ODetails;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == true).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
+                    foreach (var Detail in ODetails)
+                    {
+                        order.Details.Add(Detail);
+                    }
+                }
+            }
+            return Orders;
+        }
+
+        public async Task<IEnumerable<MenuItem>> GetmenuitemsBystoreID(int storeID)
+        {
+            List<MenuItem> MenuItems;
+            using (var customContext = Context.CreateDbContext())
+            {
+                MenuItems = await customContext.MenuItems.Include(m => m.Category).Where(m => m.RestaurantID == storeID).ToListAsync();
+            }
+            return MenuItems;
+        }
+
+        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
+        {
+            List<Category> Categories;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
+            }
+            return Categories;
+        }
+        public async Task <int> TotalEarnings(int storeID)
+        {
+            List<Order> Orders;
+            int Earnings = 0;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == true).ToListAsync();
+                foreach (var order in Orders)
+                {
+                    Earnings += order.TotalPrice;
+                }
+            }
+            return Earnings;
+        }
+
+        public async Task<int> PendingOrders(int storeID)
+        {
+            List<Order> Orders;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == false).ToListAsync();
+            }
+            return Orders.Count;
+        }
+
+        public async Task<int> DeliveredOrders(int storeID)
+        {
+            List<Order> Orders;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Orders = await customContext.Orders.Where(o => o.RestaurantID == storeID && o.Status == true).ToListAsync();
+            }
+            return Orders.Count;
+        }
+
+        public void DoneOrder(int orderID)
+        {
+            using var customContext = Context.CreateDbContext();
+            var FinishedOrder = customContext.Orders.Where(o => o.Id == orderID).First();
+            FinishedOrder.Status = true;
+            customContext.SaveChanges();
+        }
+
+        //Middle Functions--
 
         public void Insert(Restaurant restaurant)
         {
@@ -191,38 +345,30 @@ namespace FeliveryAPI.Repository
 
             return jwtSecurityToken;
         }
-        public async Task<IEnumerable<Restaurant>> Search(string name)
+
+        private string UploadFile(IFormFile Img)
         {
-            using var customContext = Context.CreateDbContext();
-
-            IQueryable<Restaurant> query = customContext.Restaurants;
-
-            if (!string.IsNullOrEmpty(name))
+            if (Img != null)
             {
-                query = query.Where(e => e.Name.Contains(name));
-            }
-            return await query.ToListAsync();
-        }
-
-        public List<Restaurant> PendingStore()
-        {
-            List<Restaurant> RestaurantsList = new();
-
-            using (var customContext = Context.CreateDbContext())
-            {             
-                RestaurantsList = customContext.Restaurants.Where(s => s.Status == "PendingStore").ToList();
-            }
-
-            using (var customContext = Context.CreateDbContext())
-            {
-                foreach (var rest in RestaurantsList)
+                string fileName = Guid.NewGuid().ToString() + "-" + Img.FileName;
+                //string UploadDir = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", Img.FileName);
+                //string filePath = Path.Combine(UploadDir, fileName);
+                string filePath = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", fileName);
+                string imagepath = filePath + "\\StoreImg.png";
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+                if (Directory.Exists(imagepath))
+                    Directory.Delete(imagepath);
+                //using FileStream stream = System.IO.File.Create(imagepath);
+                //await file.CopyToAsync(stream);
+                using (FileStream fileStream = new(filePath, FileMode.Create))
                 {
-                    rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
-
+                    Img.CopyTo(fileStream);
                 }
+                return filePath;
             }
-
-            return RestaurantsList;
+            else
+               throw new Exception("Image Not Found");
         }
     }
 }

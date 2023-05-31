@@ -1,10 +1,8 @@
 ﻿using FeliveryAPI.Data;
 using FeliveryAPI.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using NuGet.Versioning;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -14,11 +12,11 @@ namespace FeliveryAPI.Repository
 {
     public class CustomerService : ICustomerService
     {
-        private readonly Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly IConfiguration _IConfiguration;
         public IDbContextFactory<ElDbContext> Context { get; }
 
-        public CustomerService(Microsoft.AspNetCore.Identity.UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
+        public CustomerService(UserManager<IdentityUser> userManager, IConfiguration _IConfig, IDbContextFactory<ElDbContext> context)
         {
             _userManager = userManager;
             _IConfiguration = _IConfig;
@@ -37,7 +35,6 @@ namespace FeliveryAPI.Repository
                 foreach (var custr in CustomersList)
                 {
                     custr.IdentityUser = customContext.Users.First(r => r.Id == custr.SecurityID);
-
                 }
             }
             return CustomersList;
@@ -55,27 +52,33 @@ namespace FeliveryAPI.Repository
             }
             return CustomerDetails;
         }
+
         public void Update(Customer customer)
         {
 
-            //Customer CustomerWithSecID = new();
-            using (var customContext = Context.CreateDbContext())
-            {
-                //CustomerWithSecID = customContext.Customers.Find(customer.Id);
-                //customer.SecurityID = CustomerWithSecID.SecurityID;
-                customContext.Customers.Update(customer);
-                customContext.SaveChanges();
-            }       
+            using var customContext = Context.CreateDbContext();
+            var SecID = customer.SecurityID;
+            customContext.Customers.Update(customer);
+            customer.SecurityID = SecID;
+            customContext.SaveChanges();
         }
         public void Delete(int id)
         {
-            using (var customContext = Context.CreateDbContext())
+            if (id == 0)
             {
-                if (customContext.Customers.Find(id) != null)
-                {
-                    customContext.Customers.Remove(customContext.Customers.Find(id));
-                    customContext.SaveChanges();
-                }
+                throw new Exception("ID is Invalid");
+            }
+            using var customContext = Context.CreateDbContext();
+            if (customContext.Customers.Find(id) != null)
+            {
+                var CustomerDetails = customContext.Customers.Find(id);
+                customContext.Customers.Remove(customContext.Customers.Find(id));
+                customContext.Users.Remove(customContext.Users.Find(CustomerDetails.SecurityID));
+                customContext.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("Customer Not Found");
             }
         }
 
@@ -89,7 +92,7 @@ namespace FeliveryAPI.Repository
                 var res = await RegisterAsync(Data.Model);
                 if (res.Message != null)
                 {
-                    throw new Exception("An error occurred.");
+                    throw new Exception(res.Message);
                 }
                 Data.Customer.SecurityID = res.Id;
                 Insert(Data.Customer);
@@ -110,7 +113,7 @@ namespace FeliveryAPI.Repository
                 return new AuthModel { Message = ex.Message };
             }
         }
-        //-------
+        //Middle Functions--
 
         public void Insert(Customer t)
         {
