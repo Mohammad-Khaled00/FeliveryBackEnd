@@ -35,7 +35,13 @@ namespace FeliveryAPI.Repository
                 //status
                 RestaurantsList = customContext.Restaurants.ToList();
             }
-
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var rest in RestaurantsList)
+                {
+                    rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
+                }
+            }
             return RestaurantsList;
         }
 
@@ -45,6 +51,10 @@ namespace FeliveryAPI.Repository
             using (var customContext = Context.CreateDbContext())
             {
                 RestaurantDetails = customContext.Restaurants.Find(id);
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+                RestaurantDetails.IdentityUser = customContext.Users.First(r => r.Id == RestaurantDetails.SecurityID);
             }
             return RestaurantDetails;
         }

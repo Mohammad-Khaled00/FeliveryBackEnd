@@ -17,6 +17,14 @@ namespace FeliveryAPI.Repository
             {
                 OrdersList = customContext.Orders.ToList();
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var order in OrdersList)
+                {
+                    order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);
+                    order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
+                }
+            }
             return OrdersList;
         }
         public Order? GetDetails(int id)
@@ -28,7 +36,9 @@ namespace FeliveryAPI.Repository
             {
                 order.Details.Add(Detail);
             }
-            return order;
+                order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);
+                order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
+                return order;
         }
         public void Insert(Order order)
         {

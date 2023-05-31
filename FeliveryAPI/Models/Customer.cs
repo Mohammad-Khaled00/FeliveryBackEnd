@@ -14,8 +14,6 @@ namespace FeliveryAPI.Models
 
         [Key]
         public int Id { get; set; }
-        [ForeignKey(nameof(IdentityUser))]
-        public string? SecurityID { get; set; }
         [Required]
         [MaxLength(50)]
         public string CustomerName { get; set; }
@@ -25,6 +23,8 @@ namespace FeliveryAPI.Models
         [DataType(DataType.PhoneNumber)]
         [Required]
         public int MobileNumber { get; set; }
+        [ForeignKey(nameof(IdentityUser))]
+        public string? SecurityID { get; set; }
         public virtual IdentityUser? IdentityUser { get; set; }
         public virtual ICollection<Order?> Orders { get; set; }
 

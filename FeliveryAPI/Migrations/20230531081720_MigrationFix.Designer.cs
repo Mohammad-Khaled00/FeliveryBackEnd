@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    [Migration("20230530083410_RefrentialActionFix")]
-    partial class RefrentialActionFix
+    [Migration("20230531081720_MigrationFix")]
+    partial class MigrationFix
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,12 @@ namespace FeliveryAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RestaurantID");
 
                     b.ToTable("Categories");
                 });
@@ -126,6 +131,9 @@ namespace FeliveryAPI.Migrations
                     b.Property<int>("RestaurantID")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("Status")
+                        .HasColumnType("bit");
+
                     b.Property<int>("TotalPrice")
                         .HasColumnType("int");
 
@@ -187,7 +195,6 @@ namespace FeliveryAPI.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StoreImg")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -229,28 +236,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "285f30ac-0055-4f88-b247-e48eea1e95e2",
+                            Id = "895b1b87-fac5-4f69-b328-58c088db2af4",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "4df8ff84-5657-429b-9fee-1519f208a2ca",
+                            Id = "01c98915-674e-4894-8770-97cd3884c85b",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "3b66d28b-47d6-41e1-a639-05bcb836f85f",
+                            Id = "1348a3ad-3f1b-469a-bc73-3d0a52e35fdd",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "8cc85504-7982-4e50-a075-d7ec5a3c4bb0",
+                            Id = "ffe01d07-2dd3-48d8-a5df-651d2006b5eb",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -428,6 +435,17 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FeliveryAPI.Models.Category", b =>
+                {
+                    b.HasOne("FeliveryAPI.Models.Restaurant", "Restaurant")
+                        .WithMany("Categories")
+                        .HasForeignKey("RestaurantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -566,6 +584,8 @@ namespace FeliveryAPI.Migrations
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("MenuItems");
 
                     b.Navigation("Orders");

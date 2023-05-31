@@ -18,15 +18,29 @@ namespace FeliveryAPI.Repository
             {
                 CategoriesList = customContext.Categories.ToList();
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var ctg in CategoriesList)
+                {
+                    ctg.Restaurant = customContext.Restaurants.First(r => r.Id == ctg.RestaurantID);
+                }
+            }
             return CategoriesList;
         }
 
         public Category GetDetails(int id)
         {
+            var CategoryDetails = new Category();
+            using (var customContext = Context.CreateDbContext())
+            {
+                CategoryDetails = customContext.Categories.Find(id);
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+                CategoryDetails.Restaurant = customContext.Restaurants.First(r => r.Id == CategoryDetails.RestaurantID);
 
-
-            using var customContext = Context.CreateDbContext();
-            return customContext.Categories.Find(id);
+            }
+            return CategoryDetails;
         }
         public void Insert(Category category)
         {

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    [Migration("20230531004629_orderStatus")]
-    partial class orderStatus
+    [Migration("20230531081542_NewStart")]
+    partial class NewStart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,12 @@ namespace FeliveryAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RestaurantID");
 
                     b.ToTable("Categories");
                 });
@@ -231,28 +236,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a5264233-7123-4c5b-8d51-301a668d40b5",
+                            Id = "037d032e-cc0c-4db5-8895-12bdb08372c5",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "9e1fc1fe-16ec-40e9-b567-8f6f6954b690",
+                            Id = "358cdbb5-b59d-4cab-8d00-4a8a2a205f43",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "64dad01f-a18e-4392-8710-d307ddfa0ae5",
+                            Id = "7cd256c6-05f8-4e84-b6db-b19ed089802b",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "3d5024cc-b0a4-4a11-9720-9bca43df5234",
+                            Id = "60c5ff11-d3ac-476b-a96c-65b3e4ff4469",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -430,6 +435,17 @@ namespace FeliveryAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("FeliveryAPI.Models.Category", b =>
+                {
+                    b.HasOne("FeliveryAPI.Models.Restaurant", "Restaurant")
+                        .WithMany("Categories")
+                        .HasForeignKey("RestaurantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("FeliveryAPI.Models.Customer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
@@ -568,6 +584,8 @@ namespace FeliveryAPI.Migrations
 
             modelBuilder.Entity("FeliveryAPI.Models.Restaurant", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("MenuItems");
 
                     b.Navigation("Orders");

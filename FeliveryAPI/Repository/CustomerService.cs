@@ -30,6 +30,13 @@ namespace FeliveryAPI.Repository
             {
                 CustomersList = customContext.Customers.ToList();
             }
+            using (var customContext = Context.CreateDbContext())
+            {
+                foreach (var custr in CustomersList)
+                {
+                    custr.IdentityUser = customContext.Users.First(r => r.Id == custr.SecurityID);
+                }
+            }
             return CustomersList;
         }
         public Customer? GetDetails(int id)
@@ -38,6 +45,10 @@ namespace FeliveryAPI.Repository
             using (var customContext = Context.CreateDbContext())
             {
                 CustomerDetails = customContext.Customers.Find(id);
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+                CustomerDetails.IdentityUser = customContext.Users.First(r => r.Id == CustomerDetails.SecurityID);
             }
             return CustomerDetails;
         }
@@ -102,7 +113,7 @@ namespace FeliveryAPI.Repository
                 return new AuthModel { Message = ex.Message };
             }
         }
-        //-------
+        //Middle Functions--
 
         public void Insert(Customer t)
         {
