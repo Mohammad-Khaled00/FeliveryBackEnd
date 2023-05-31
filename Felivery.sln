@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeliveryAPI", "FeliveryAPI\FeliveryAPI.csproj", "{E8B80E30-116B-4935-B06F-C56867338C3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeliveryAdminPanel", "FeliveryAdminPanel\FeliveryAdminPanel.csproj", "{012B8B3C-F67C-445C-B984-8E4443E8621D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeliveryAdminPanel", "FeliveryAdminPanel\FeliveryAdminPanel.csproj", "{D973C5C6-A9F0-4C45-86E8-B349B2F3C6F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{E8B80E30-116B-4935-B06F-C56867338C3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8B80E30-116B-4935-B06F-C56867338C3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8B80E30-116B-4935-B06F-C56867338C3F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{012B8B3C-F67C-445C-B984-8E4443E8621D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{012B8B3C-F67C-445C-B984-8E4443E8621D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{012B8B3C-F67C-445C-B984-8E4443E8621D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{012B8B3C-F67C-445C-B984-8E4443E8621D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D973C5C6-A9F0-4C45-86E8-B349B2F3C6F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D973C5C6-A9F0-4C45-86E8-B349B2F3C6F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D973C5C6-A9F0-4C45-86E8-B349B2F3C6F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D973C5C6-A9F0-4C45-86E8-B349B2F3C6F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
