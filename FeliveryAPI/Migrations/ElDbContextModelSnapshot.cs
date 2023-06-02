@@ -191,6 +191,9 @@ namespace FeliveryAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("NumOfRaters")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityID")
                         .HasColumnType("nvarchar(450)");
 
@@ -199,6 +202,9 @@ namespace FeliveryAPI.Migrations
 
                     b.Property<string>("StoreImg")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TotalRatings")
+                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -239,28 +245,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a333ba52-1355-49bb-96ac-f40cabad19bd",
+                            Id = "e2fb189c-8324-40d5-8312-ed6658edd764",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "328c3ad7-e96b-4d5f-94fc-b87d422e9b7a",
+                            Id = "4fe01f93-f4c1-4987-b102-e8e5d90aef85",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "3366e491-5774-4c1c-b124-e0d7914fdcb9",
+                            Id = "9d2611ae-b5a4-4954-a6a3-ac22bfe68e03",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "6a0434e0-1da5-4dd7-a31d-353f65c42ee7",
+                            Id = "e4d6b16f-b99d-435f-9bd4-39dd7bfafd25",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"

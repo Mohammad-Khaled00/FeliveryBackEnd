@@ -17,7 +17,6 @@ namespace FeliveryAPI.Models
             Categories = new List<Category>();
         }
 
-
         [Key]
         public int Id { get; set; }
         [ForeignKey(nameof(IdentityUser))]
@@ -34,16 +33,11 @@ namespace FeliveryAPI.Models
         public string? StoreImg { get; set; }
         public StoreType Type { get; set; }
         public string? Status { get; set; }
+        public int? TotalRatings { get; set; }
+        public int? NumOfRaters { get; set; }
         public virtual IdentityUser? IdentityUser { get; set; }
         public virtual ICollection<MenuItem?> MenuItems { get; set; }
         public virtual ICollection<Order?> Orders { get; set; }
         public virtual ICollection<Category?> Categories { get; set; }
-
-
-        /// <summary>
-        /// To Do Feature
-        /// public int Rate { get; set; } 
-        /// (1 -> 5)
-        /// </summary>
     }
 }

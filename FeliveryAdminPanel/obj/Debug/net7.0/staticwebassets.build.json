@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XXG7sLWHlbXyqDUq1KCxuD5kOYT49Tk7eE2OiLHDcH0=",
+  "Hash": "OZJwpuccmugRb1q6VEalMMG/5AReQyRnMoUnXuQ0MjQ=",
   "Source": "FeliveryAdminPanel",
   "BasePath": "_content/FeliveryAdminPanel",
   "Mode": "Default",
@@ -1090,12 +1090,12 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\Uploads\\Common\\NoImg.jpg",
+      "Identity": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\Uploads\\Common\\NoImg.png",
       "SourceId": "FeliveryAPI",
       "SourceType": "Project",
       "ContentRoot": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\wwwroot\\",
       "BasePath": "_content/FeliveryAPI",
-      "RelativePath": "Uploads/Common/NoImg.jpg",
+      "RelativePath": "Uploads/Common/NoImg.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1104,7 +1104,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\Uploads\\Common\\NoImg.jpg"
+      "OriginalItemSpec": "wwwroot\\Uploads\\Common\\NoImg.png"
     }
   ]
 }

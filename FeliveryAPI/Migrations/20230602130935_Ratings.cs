@@ -7,7 +7,7 @@
 namespace FeliveryAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class EditingCategories : Migration
+    public partial class Ratings : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,45 +15,44 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "01c98915-674e-4894-8770-97cd3884c85b");
+                keyValue: "0a9d1977-e413-4bee-aa52-66a3a28822d5");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "1348a3ad-3f1b-469a-bc73-3d0a52e35fdd");
+                keyValue: "357d1ed8-9744-4050-b989-74afce671096");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "895b1b87-fac5-4f69-b328-58c088db2af4");
+                keyValue: "724070a4-8777-4e98-bb9f-fe8007f31c29");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "ffe01d07-2dd3-48d8-a5df-651d2006b5eb");
+                keyValue: "d05e8368-20d0-4b71-9f41-b8c7d17a6bc2");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Status",
+            migrationBuilder.AddColumn<int>(
+                name: "NumOfRaters",
                 table: "Restaurants",
-                type: "nvarchar(max)",
+                type: "int",
                 nullable: true);
 
-            migrationBuilder.AddColumn<bool>(
-                name: "IsOffer",
-                table: "MenuItems",
-                type: "bit",
-                nullable: false,
-                defaultValue: false);
+            migrationBuilder.AddColumn<int>(
+                name: "TotalRatings",
+                table: "Restaurants",
+                type: "int",
+                nullable: true);
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "328c3ad7-e96b-4d5f-94fc-b87d422e9b7a", "2", "ApprovedStore", "ApprovedStore" },
-                    { "3366e491-5774-4c1c-b124-e0d7914fdcb9", "3", "PendingStore", "PendingStore" },
-                    { "6a0434e0-1da5-4dd7-a31d-353f65c42ee7", "4", "Customer", "Customer" },
-                    { "a333ba52-1355-49bb-96ac-f40cabad19bd", "1", "Admin", "Admin" }
+                    { "4fe01f93-f4c1-4987-b102-e8e5d90aef85", "2", "ApprovedStore", "ApprovedStore" },
+                    { "9d2611ae-b5a4-4954-a6a3-ac22bfe68e03", "3", "PendingStore", "PendingStore" },
+                    { "e2fb189c-8324-40d5-8312-ed6658edd764", "1", "Admin", "Admin" },
+                    { "e4d6b16f-b99d-435f-9bd4-39dd7bfafd25", "4", "Customer", "Customer" }
                 });
         }
 
@@ -63,40 +62,40 @@ namespace FeliveryAPI.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "328c3ad7-e96b-4d5f-94fc-b87d422e9b7a");
+                keyValue: "4fe01f93-f4c1-4987-b102-e8e5d90aef85");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "3366e491-5774-4c1c-b124-e0d7914fdcb9");
+                keyValue: "9d2611ae-b5a4-4954-a6a3-ac22bfe68e03");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6a0434e0-1da5-4dd7-a31d-353f65c42ee7");
+                keyValue: "e2fb189c-8324-40d5-8312-ed6658edd764");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "a333ba52-1355-49bb-96ac-f40cabad19bd");
+                keyValue: "e4d6b16f-b99d-435f-9bd4-39dd7bfafd25");
 
             migrationBuilder.DropColumn(
-                name: "Status",
+                name: "NumOfRaters",
                 table: "Restaurants");
 
             migrationBuilder.DropColumn(
-                name: "IsOffer",
-                table: "MenuItems");
+                name: "TotalRatings",
+                table: "Restaurants");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "01c98915-674e-4894-8770-97cd3884c85b", "2", "ApprovedStore", "ApprovedStore" },
-                    { "1348a3ad-3f1b-469a-bc73-3d0a52e35fdd", "3", "PendingStore", "PendingStore" },
-                    { "895b1b87-fac5-4f69-b328-58c088db2af4", "1", "Admin", "Admin" },
-                    { "ffe01d07-2dd3-48d8-a5df-651d2006b5eb", "4", "Customer", "Customer" }
+                    { "0a9d1977-e413-4bee-aa52-66a3a28822d5", "2", "ApprovedStore", "ApprovedStore" },
+                    { "357d1ed8-9744-4050-b989-74afce671096", "4", "Customer", "Customer" },
+                    { "724070a4-8777-4e98-bb9f-fe8007f31c29", "3", "PendingStore", "PendingStore" },
+                    { "d05e8368-20d0-4b71-9f41-b8c7d17a6bc2", "1", "Admin", "Admin" }
                 });
         }
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    [Migration("20230531090159_EditingCategories")]
-    partial class EditingCategories
+    [Migration("20230601195948_FreshStart")]
+    partial class FreshStart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,28 +242,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a333ba52-1355-49bb-96ac-f40cabad19bd",
+                            Id = "b35fc6da-abeb-4d03-90e5-fb54440f3f48",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "328c3ad7-e96b-4d5f-94fc-b87d422e9b7a",
+                            Id = "609ffdfa-139c-40ca-932b-050645d7eb6d",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "3366e491-5774-4c1c-b124-e0d7914fdcb9",
+                            Id = "3c7db34e-c85f-4ae5-be0b-8b3fb03ca6f1",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "6a0434e0-1da5-4dd7-a31d-353f65c42ee7",
+                            Id = "c2abc30a-6ef2-49a1-bb93-7626bb3e0b07",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"

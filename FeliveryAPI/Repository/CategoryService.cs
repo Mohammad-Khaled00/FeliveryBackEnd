@@ -33,6 +33,8 @@ namespace FeliveryAPI.Repository
             var CategoryDetails = new Category();
             using (var customContext = Context.CreateDbContext())
             {
+                //if (customContext.Categories.Find(id) == null)
+                //    throw new Exception("Category Not Found");
                 CategoryDetails = customContext.Categories.Find(id);
             }
             using (var customContext = Context.CreateDbContext())

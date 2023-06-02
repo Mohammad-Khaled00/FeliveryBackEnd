@@ -55,13 +55,20 @@ namespace FeliveryAPI.Repository
 
         public void Update(Customer customer)
         {
-
-            using var customContext = Context.CreateDbContext();
-            var SecID = customer.SecurityID;
-            customContext.Customers.Update(customer);
-            customer.SecurityID = SecID;
-            customContext.SaveChanges();
+            string SecID;
+            using (var customContext = Context.CreateDbContext())
+            {
+                var DiffRouteData = customContext.Customers.Find(customer.Id);
+                SecID = DiffRouteData.SecurityID;
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.Customers.Update(customer);
+                customer.SecurityID = SecID;
+                customContext.SaveChanges();
+            }
         }
+
         public void Delete(int id)
         {
             if (id == 0)
@@ -124,6 +131,7 @@ namespace FeliveryAPI.Repository
 
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
+            model.Username = model.Username.Replace(" ", "-");
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return new AuthModel { Message = "Email is already registered!" };
 

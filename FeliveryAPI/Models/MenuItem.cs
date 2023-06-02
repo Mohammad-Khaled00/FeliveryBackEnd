@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Models
 {
+    //[Index(nameof(Name), IsUnique = true)]
     public class MenuItem
     {
         [Key]
@@ -17,7 +19,6 @@ namespace FeliveryAPI.Models
         [ForeignKey(nameof(Category))]
         public int CategoryID { get; set; }
         public virtual Category? Category { get; set; }
-
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
         public virtual Restaurant? Restaurant { get; set; }

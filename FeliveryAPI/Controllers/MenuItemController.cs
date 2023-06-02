@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using FeliveryAPI.Data;
-using FeliveryAPI.Models;
+﻿using FeliveryAPI.Models;
 using FeliveryAPI.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FeliveryAPI.Controllers
 {
@@ -15,8 +8,8 @@ namespace FeliveryAPI.Controllers
     [ApiController]
     public class MenuItemController : ControllerBase
     {
-        public IRepository<MenuItem> MenuItemRepo { get; set; }
-        public MenuItemController(IRepository<MenuItem> menuItemRepo)
+        public IMenuItemService MenuItemRepo { get; set; }
+        public MenuItemController(IMenuItemService menuItemRepo)
         {
             MenuItemRepo = menuItemRepo;
         }
@@ -62,15 +55,20 @@ namespace FeliveryAPI.Controllers
                 {
                     MenuItemRepo.Insert(menuItem);
                     return Created("url", menuItem);
-                    // return 201 & Url is the place where you added the object
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex.Message); // Return 400!
+                    return BadRequest(ex.Message);
                 }
             }
             return BadRequest();
         }
-
+        //Upload Images
+        [HttpPost("uploadImage/{storename}/{ItemName}")]
+        public ActionResult UploadImage(IFormFile? file, string storename, string ItemName)
+        {
+            var Results = MenuItemRepo.UploadImage(file, storename, ItemName);
+            return Ok(Results);
+        }
     }
 }
