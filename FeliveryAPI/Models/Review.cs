@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FeliveryAPI.Models
 {
-    public class Category
+    public class Review
     {
-        public Category()
-        {
-            Restaurant? Restaurant = new();
-        }
         [Key]
-        [HiddenInput]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
+        public string Comment { get; set; }
         [ForeignKey(nameof(Restaurant))]
         public int RestaurantID { get; set; }
         public virtual Restaurant? Restaurant { get; set; }
+        [ForeignKey(nameof(Customer))]
+        public int CustomerID { get; set; }
+        public virtual Customer? Customer { get; set; }
     }
 }

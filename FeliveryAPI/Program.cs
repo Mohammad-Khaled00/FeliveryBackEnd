@@ -24,13 +24,15 @@ builder.Services.AddDbContextFactory<ElDbContext>(
           }
       );
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ElDbContext>();
-builder.Services.AddScoped<IRepository<MenuItem>, MenuItemService>();
 builder.Services.AddScoped<IRepository<Category>, CategoryService>();
 builder.Services.AddScoped<IRepository<Order>, OrderService>();
+builder.Services.AddScoped<IMenuItemService, MenuItemService>();
 builder.Services.AddScoped<IStoreService,StoreService>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IFeedBackSercivce<TechnicalFeedBack>, TechnicalFeedBackService>();
+builder.Services.AddScoped<IFeedBackSercivce<Review>, ReviewService>();
 
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

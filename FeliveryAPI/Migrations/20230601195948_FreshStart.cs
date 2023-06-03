@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FeliveryAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class NewStart : Migration
+    public partial class FreshStart : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -191,7 +191,8 @@ namespace FeliveryAPI.Migrations
                     MobileNumber = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StoreImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -262,6 +263,7 @@ namespace FeliveryAPI.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MenuItemImg = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsOffer = table.Column<bool>(type: "bit", nullable: false),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
                     RestaurantID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -279,7 +281,7 @@ namespace FeliveryAPI.Migrations
                         column: x => x.RestaurantID,
                         principalTable: "Restaurants",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,7 +301,7 @@ namespace FeliveryAPI.Migrations
                         column: x => x.MenuItemID,
                         principalTable: "MenuItems",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Orders_OrderId",
                         column: x => x.OrderId,
@@ -313,10 +315,10 @@ namespace FeliveryAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "037d032e-cc0c-4db5-8895-12bdb08372c5", "1", "Admin", "Admin" },
-                    { "358cdbb5-b59d-4cab-8d00-4a8a2a205f43", "2", "ApprovedStore", "ApprovedStore" },
-                    { "60c5ff11-d3ac-476b-a96c-65b3e4ff4469", "4", "Customer", "Customer" },
-                    { "7cd256c6-05f8-4e84-b6db-b19ed089802b", "3", "PendingStore", "PendingStore" }
+                    { "3c7db34e-c85f-4ae5-be0b-8b3fb03ca6f1", "3", "PendingStore", "PendingStore" },
+                    { "609ffdfa-139c-40ca-932b-050645d7eb6d", "2", "ApprovedStore", "ApprovedStore" },
+                    { "b35fc6da-abeb-4d03-90e5-fb54440f3f48", "1", "Admin", "Admin" },
+                    { "c2abc30a-6ef2-49a1-bb93-7626bb3e0b07", "4", "Customer", "Customer" }
                 });
 
             migrationBuilder.CreateIndex(

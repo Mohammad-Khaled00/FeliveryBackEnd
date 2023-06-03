@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FeliveryAPI.Migrations
 {
     [DbContext(typeof(ElDbContext))]
-    [Migration("20230531081720_MigrationFix")]
-    partial class MigrationFix
+    [Migration("20230602160627_FeedBacks")]
+    partial class FeedBacks
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -90,6 +90,9 @@ namespace FeliveryAPI.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsOffer")
+                        .HasColumnType("bit");
 
                     b.Property<string>("MenuItemImg")
                         .HasColumnType("nvarchar(max)");
@@ -191,11 +194,20 @@ namespace FeliveryAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int?>("NumOfRaters")
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityID")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("StoreImg")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TotalRatings")
+                        .HasColumnType("int");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -205,6 +217,60 @@ namespace FeliveryAPI.Migrations
                     b.HasIndex("SecurityID");
 
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("FeliveryAPI.Models.Review", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("RestaurantID");
+
+                    b.ToTable("Review");
+                });
+
+            modelBuilder.Entity("FeliveryAPI.Models.TechnicalFeedBack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RestaurantID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("RestaurantID");
+
+                    b.ToTable("TechnicalFeedBack");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -236,28 +302,28 @@ namespace FeliveryAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "895b1b87-fac5-4f69-b328-58c088db2af4",
+                            Id = "5ce525cd-c814-434c-aafd-0393cf58773e",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "01c98915-674e-4894-8770-97cd3884c85b",
+                            Id = "931aa61f-9f8e-48c1-9ecc-204e1a6d7e46",
                             ConcurrencyStamp = "2",
                             Name = "ApprovedStore",
                             NormalizedName = "ApprovedStore"
                         },
                         new
                         {
-                            Id = "1348a3ad-3f1b-469a-bc73-3d0a52e35fdd",
+                            Id = "7d9d9582-ecd4-4d8f-b7c9-ceea4fa19095",
                             ConcurrencyStamp = "3",
                             Name = "PendingStore",
                             NormalizedName = "PendingStore"
                         },
                         new
                         {
-                            Id = "ffe01d07-2dd3-48d8-a5df-651d2006b5eb",
+                            Id = "1e878532-f0fd-4462-8429-5413a3165e9c",
                             ConcurrencyStamp = "4",
                             Name = "Customer",
                             NormalizedName = "Customer"
@@ -519,6 +585,44 @@ namespace FeliveryAPI.Migrations
                         .HasForeignKey("SecurityID");
 
                     b.Navigation("IdentityUser");
+                });
+
+            modelBuilder.Entity("FeliveryAPI.Models.Review", b =>
+                {
+                    b.HasOne("FeliveryAPI.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FeliveryAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Restaurant");
+                });
+
+            modelBuilder.Entity("FeliveryAPI.Models.TechnicalFeedBack", b =>
+                {
+                    b.HasOne("FeliveryAPI.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FeliveryAPI.Models.Restaurant", "Restaurant")
+                        .WithMany()
+                        .HasForeignKey("RestaurantID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Restaurant");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

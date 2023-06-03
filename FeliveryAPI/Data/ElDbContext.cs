@@ -17,6 +17,8 @@ namespace FeliveryAPI.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<Review> Review { get; set; }
+        public DbSet<TechnicalFeedBack> TechnicalFeedBack { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

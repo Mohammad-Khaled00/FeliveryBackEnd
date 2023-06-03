@@ -61,11 +61,21 @@ namespace FeliveryAPI.Repository
 
         public void Update(Restaurant restaurant)
         {
-            using var customContext = Context.CreateDbContext();
-            var SecID = restaurant.SecurityID;
-            customContext.Restaurants.Update(restaurant);
-            restaurant.SecurityID = SecID;
-            customContext.SaveChanges();
+            string SecID;
+            string StImg;
+            using (var customContext = Context.CreateDbContext())
+            {
+                var DiffRouteData = customContext.Restaurants.Find(restaurant.Id);
+                SecID = DiffRouteData.SecurityID;
+                StImg = DiffRouteData.StoreImg;
+            }
+            using (var customContext = Context.CreateDbContext())
+            {
+                customContext.Restaurants.Update(restaurant);
+                restaurant.SecurityID = SecID;
+                restaurant.StoreImg = StImg;
+                customContext.SaveChanges();
+            }
         }
         public void Delete(int id)
         {
@@ -77,8 +87,12 @@ namespace FeliveryAPI.Repository
             if (customContext.Restaurants.Find(id) != null)
             {
                 var RestaurantDetails = customContext.Restaurants.Find(id);
-                customContext.Restaurants.Remove(customContext.Restaurants.Find(id));
-                customContext.Users.Remove(customContext.Users.Find(RestaurantDetails.SecurityID));
+                var UserDetails = customContext.Users.Find(RestaurantDetails.SecurityID);
+                var StoreFolder = _environment.WebRootPath + "\\Uploads\\Product\\" + UserDetails.UserName;
+                customContext.Restaurants.Remove(RestaurantDetails);
+                customContext.Users.Remove(UserDetails);
+                if (Directory.Exists(StoreFolder))
+                    Directory.Delete(StoreFolder, true);
                 customContext.SaveChanges();
             }
             else
@@ -94,18 +108,13 @@ namespace FeliveryAPI.Repository
             {
                 TransactionManager.ImplicitDistributedTransactions = true;
                 TransactionInterop.GetTransmitterPropagationToken(Transaction.Current);
-                //Insert(Data.restaurant);
-                //var result = RegisterAsync(Data.model);
-                //Task.WaitAll(result);
                 var res = await RegisterAsync(Data.Model);
                 if (res.Message != null)
                 {
                     throw new Exception(res.Message);
                 }
-                //string Img = UploadFile(Data.Image);
                 Data.Restaurant.SecurityID = res.Id;
                 Data.Restaurant.Status = res.Roles[0];
-                //Data.Restaurant.StoreImg = Img;
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -123,6 +132,41 @@ namespace FeliveryAPI.Repository
                 transaction.Dispose();
                 return new AuthModel { Message = ex.Message };
             }
+        }
+
+        public string UploadImage(IFormFile Img, string Storename)
+        {
+            using (var customContext = Context.CreateDbContext())
+            {
+                if (customContext.Restaurants.Where(r => r.Name == Storename).First() == null)
+                    throw new Exception("Store Name Not Found");
+            }
+            if (Img != null)
+            {
+                string ImageUrl = string.Empty;
+                string HostUrl = "https://localhost:44309/";
+                string RawName = Storename.Replace(" ", "-");
+                string filePath = _environment.WebRootPath + "\\Uploads\\Product\\" + RawName;
+                string imagepath = filePath + "\\StoreImg.png";
+                if (!Directory.Exists(filePath))
+                    Directory.CreateDirectory(filePath);
+                if (Directory.Exists(imagepath))
+                    Directory.Delete(imagepath);
+                using (FileStream fileStream = File.Create(imagepath))
+                {
+                    Img.CopyTo(fileStream);
+                }
+                ImageUrl = HostUrl + "/uploads/Product/" + RawName + "/storeimg.png";
+                using (var customContext = Context.CreateDbContext())
+                {
+                    var storeImg = customContext.Restaurants.Where(r => r.Name == Storename).First();
+                    storeImg.StoreImg = ImageUrl;
+                    customContext.SaveChanges();
+                }
+                return ImageUrl;
+            }
+            else
+                throw new Exception("Image Not Found");
         }
 
         //Stastics--
@@ -271,6 +315,7 @@ namespace FeliveryAPI.Repository
         }
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
+            model.Username = model.Username.Replace(" ", "-");
             if (await _userManager.FindByEmailAsync(model.Email) is not null)
                 return new AuthModel { Message = "Email is already registered!" };
 
@@ -344,31 +389,6 @@ namespace FeliveryAPI.Repository
                 signingCredentials: signingCredentials);
 
             return jwtSecurityToken;
-        }
-
-        private string UploadFile(IFormFile Img)
-        {
-            if (Img != null)
-            {
-                string fileName = Guid.NewGuid().ToString() + "-" + Img.FileName;
-                //string UploadDir = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", Img.FileName);
-                //string filePath = Path.Combine(UploadDir, fileName);
-                string filePath = Path.Combine(_environment.WebRootPath, "\\Uploads\\Product\\", fileName);
-                string imagepath = filePath + "\\StoreImg.png";
-                if (!Directory.Exists(filePath))
-                    Directory.CreateDirectory(filePath);
-                if (Directory.Exists(imagepath))
-                    Directory.Delete(imagepath);
-                //using FileStream stream = System.IO.File.Create(imagepath);
-                //await file.CopyToAsync(stream);
-                using (FileStream fileStream = new(filePath, FileMode.Create))
-                {
-                    Img.CopyTo(fileStream);
-                }
-                return filePath;
-            }
-            else
-               throw new Exception("Image Not Found");
         }
     }
 }
