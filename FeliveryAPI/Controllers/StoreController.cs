@@ -50,6 +50,14 @@ namespace FeliveryAPI.Controllers
             return Ok(menuitems);
         }
 
+        [HttpGet("CstoreID/{CstoreID}")]
+        public async Task<IActionResult> GetCategoriesBystoreID(int CstoreID)
+        {
+            var categories = await StoreRepo.GetCategoriesBystoreID(CstoreID);
+
+            return Ok(categories);
+        }
+
         [HttpGet("TotalEarnings/{storeID}")]
         public async Task<IActionResult> TotalEarnings(int storeID)
         {

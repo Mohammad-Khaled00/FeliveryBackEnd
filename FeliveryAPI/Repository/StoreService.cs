@@ -253,12 +253,21 @@ namespace FeliveryAPI.Repository
             return MenuItems;
         }
 
+        /*        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
+                {
+                    List<Category> Categories;
+                    using (var customContext = Context.CreateDbContext())
+                    {
+                        Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
+                    }
+                    return Categories;
+                }*/
         public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
         {
             List<Category> Categories;
             using (var customContext = Context.CreateDbContext())
             {
-                Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
+                Categories = await customContext.Categories.Where(m => m.RestaurantID == storeID).ToListAsync();
             }
             return Categories;
         }
