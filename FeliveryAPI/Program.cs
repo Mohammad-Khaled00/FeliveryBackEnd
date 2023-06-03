@@ -31,6 +31,8 @@ builder.Services.AddScoped<IStoreService,StoreService>();
 builder.Services.AddScoped<ICustomerService,CustomerService>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IFeedBackSercivce<TechnicalFeedBack>, TechnicalFeedBackService>();
+builder.Services.AddScoped<IFeedBackSercivce<Review>, ReviewService>();
 
 builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 

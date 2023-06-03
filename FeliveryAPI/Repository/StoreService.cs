@@ -136,9 +136,11 @@ namespace FeliveryAPI.Repository
 
         public string UploadImage(IFormFile Img, string Storename)
         {
-            if (Storename == null)
-                throw new Exception("Store Name Not Found");
-
+            using (var customContext = Context.CreateDbContext())
+            {
+                if (customContext.Restaurants.Where(r => r.Name == Storename).First() == null)
+                    throw new Exception("Store Name Not Found");
+            }
             if (Img != null)
             {
                 string ImageUrl = string.Empty;
