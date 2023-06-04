@@ -70,5 +70,18 @@ namespace FeliveryAPI.Controllers
             var Results = MenuItemRepo.UploadImage(file, storename, ItemName);
             return Ok(Results);
         }
+
+        [HttpGet("offers")]
+        public ActionResult<List<MenuItem>> GetOffers()
+        {
+            var listOfMenuItem = MenuItemRepo.MenuItemOffer();
+
+            if (listOfMenuItem != null )
+            {
+                return Ok(listOfMenuItem);
+            }
+            return Ok(listOfMenuItem);
+        }
+
     }
 }
