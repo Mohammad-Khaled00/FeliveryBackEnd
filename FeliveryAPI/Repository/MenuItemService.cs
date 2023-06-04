@@ -137,5 +137,17 @@ namespace FeliveryAPI.Repository
                 return ImageUrl;
             }
         }
+
+
+        public List<MenuItem> MenuItemOffer()
+        {
+            List<MenuItem> MenuItemList = new();
+
+            using (var customContext = Context.CreateDbContext())
+            {
+                MenuItemList = customContext.MenuItems.Where(s => s.IsOffer == true).ToList();
+            }
+            return MenuItemList;
+        }
     }
 }

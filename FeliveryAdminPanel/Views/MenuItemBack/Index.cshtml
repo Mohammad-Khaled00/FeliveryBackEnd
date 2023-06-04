@@ -25,6 +25,9 @@
                 @Html.DisplayNameFor(model => model.MenuItemImg)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.IsOffer)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Category)
             </th>
             <th>
@@ -47,6 +50,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MenuItemImg)
+            </td>
+           <td>
+                   @Html.DisplayFor(modelItem => item.IsOffer)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Name)

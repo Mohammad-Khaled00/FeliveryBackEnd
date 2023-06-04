@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj": {}
+    "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj": {
+    "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj",
+        "projectUniqueName": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj",
         "projectName": "FeliveryAdminPanel",
-        "projectPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj",
-        "packagesPath": "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAdminPanel\\obj\\",
+        "projectPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAdminPanel\\FeliveryAdminPanel.csproj",
+        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+        "outputPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAdminPanel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mohamed Khaled\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,14 +22,15 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj": {
-                "projectPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj"
+              "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\FeliveryAPI.csproj": {
+                "projectPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\FeliveryAPI.csproj"
               }
             }
           }
@@ -88,21 +89,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj": {
+    "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\FeliveryAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj",
+        "projectUniqueName": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\FeliveryAPI.csproj",
         "projectName": "FeliveryAPI",
-        "projectPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\FeliveryAPI.csproj",
-        "packagesPath": "C:\\Users\\Mohamed Khaled\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mohamed Khaled\\Desktop\\GP\\Project\\BackEnd\\FeliveryAPI\\obj\\",
+        "projectPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\FeliveryAPI.csproj",
+        "packagesPath": "C:\\Users\\dell\\.nuget\\packages\\",
+        "outputPath": "D:\\ITI\\Graduation Project\\FeliveryBackEndGit\\BackGitFelivery\\FeliveryAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mohamed Khaled\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -110,6 +111,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -204,7 +206,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
