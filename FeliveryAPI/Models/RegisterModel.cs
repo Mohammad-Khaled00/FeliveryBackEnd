@@ -12,6 +12,7 @@ namespace FeliveryAPI.Models
         public string Email { get; set; }
 
         [Required, StringLength(256)]
+        [MinLength(8)]
         public string Password { get; set; }
 
     }

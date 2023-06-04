@@ -25,10 +25,10 @@ namespace FeliveryAPI.Controllers
             return CategoryRepo.GetDetails(id);
         }
         [HttpDelete("{id}")]
-        public ActionResult DeleteCategory(int id)
-        { 
-            CategoryRepo.Delete(id);
-            return Ok();
+        public ActionResult<Category> DeleteCategory(int id)
+        {
+            Category CategoryData = CategoryRepo.Delete(id);
+            return Ok(CategoryData);
         }
         [HttpPut]
         public ActionResult Put(Category category)

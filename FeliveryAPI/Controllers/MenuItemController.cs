@@ -13,6 +13,7 @@ namespace FeliveryAPI.Controllers
         {
             MenuItemRepo = menuItemRepo;
         }
+
         [HttpGet]
         public ActionResult<List<MenuItem>> GetFoodServed()
         {
@@ -24,17 +25,20 @@ namespace FeliveryAPI.Controllers
             }
             return Ok(listOfMenuItem);
         }
+
         [HttpGet("{id}")]
         public ActionResult<MenuItem> GetById(int id)
         {
             return MenuItemRepo.GetDetails(id);
         }
+
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        { 
-            MenuItemRepo.Delete(id);
-            return Ok();
+        public ActionResult<MenuItem> Delete(int id)
+        {
+            MenuItem MenuData = MenuItemRepo.Delete(id);
+            return Ok(MenuData);
         }
+
         [HttpPut]
         public ActionResult Put(MenuItem menuItem)
         {
@@ -46,6 +50,7 @@ namespace FeliveryAPI.Controllers
             }
             return NotFound();
         }
+
         [HttpPost]
         public ActionResult Post([FromBody] MenuItem menuItem)
         {
@@ -63,6 +68,7 @@ namespace FeliveryAPI.Controllers
             }
             return BadRequest();
         }
+
         //Upload Images
         [HttpPost("uploadImage/{storename}/{ItemName}")]
         public ActionResult UploadImage(IFormFile? file, string storename, string ItemName)

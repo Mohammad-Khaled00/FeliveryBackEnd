@@ -22,10 +22,10 @@ namespace FeliveryAPI.Repository
             _IConfiguration = _IConfig;
             Context = context;
         }
+
         public List<Customer> GetAll()
         {
             List<Customer> CustomersList = new();
-
             using (var customContext = Context.CreateDbContext())
             {
                 CustomersList = customContext.Customers.ToList();
@@ -39,6 +39,7 @@ namespace FeliveryAPI.Repository
             }
             return CustomersList;
         }
+
         public Customer? GetDetails(int id)
         {
             Customer CustomerDetails = new();
@@ -69,7 +70,7 @@ namespace FeliveryAPI.Repository
             }
         }
 
-        public void Delete(int id)
+        public Customer Delete(int id)
         {
             if (id == 0)
             {
@@ -78,10 +79,12 @@ namespace FeliveryAPI.Repository
             using var customContext = Context.CreateDbContext();
             if (customContext.Customers.Find(id) != null)
             {
-                var CustomerDetails = customContext.Customers.Find(id);
-                customContext.Customers.Remove(customContext.Customers.Find(id));
-                customContext.Users.Remove(customContext.Users.Find(CustomerDetails.SecurityID));
+                Customer CustomerDetails = customContext.Customers.Find(id);
+                var UserDetails = customContext.Users.Find(CustomerDetails.SecurityID);
+                customContext.Customers.Remove(CustomerDetails);
+                customContext.Users.Remove(UserDetails);
                 customContext.SaveChanges();
+                return CustomerDetails;
             }
             else
             {
@@ -120,8 +123,8 @@ namespace FeliveryAPI.Repository
                 return new AuthModel { Message = ex.Message };
             }
         }
-        //Middle Functions--
 
+        //Middle Functions--
         public void Insert(Customer t)
         {
             using var customContext = Context.CreateDbContext();

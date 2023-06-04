@@ -9,10 +9,10 @@ namespace FeliveryAPI.Repository
         public OrderService(IDbContextFactory<ElDbContext> context) : base(context)
         {
         }
+
         public List<Order> GetAll()
         {
             List<Order> OrdersList = new();
-
             using (var customContext = Context.CreateDbContext())
             {
                 OrdersList = customContext.Orders.ToList();
@@ -27,6 +27,7 @@ namespace FeliveryAPI.Repository
             }
             return OrdersList;
         }
+
         public Order? GetDetails(int id)
         {
             using var customContext = Context.CreateDbContext();
@@ -40,6 +41,7 @@ namespace FeliveryAPI.Repository
                 order.Customer = customContext.Customers.First(r => r.Id == order.CustomerID);
                 return order;
         }
+
         public void Insert(Order order)
         {
             using var customContext = Context.CreateDbContext();
@@ -47,11 +49,14 @@ namespace FeliveryAPI.Repository
             customContext.Orders.Add(order);
             customContext.SaveChanges();
         }
-        public void Delete(int id)
+
+        public Order Delete(int id)
         {
             using var customContext = Context.CreateDbContext();
-            customContext.Orders.Remove(customContext.Orders.Find(id));
+            Order OrderData = customContext.Orders.Find(id);
+            customContext.Orders.Remove(OrderData);
             customContext.SaveChanges();
+            return OrderData;
         }
 
         public void Update(Order order)

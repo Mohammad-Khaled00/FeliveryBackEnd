@@ -25,14 +25,12 @@ namespace FeliveryAPI.Repository
             Context = context;
             _environment = environment;
         }
+
         public List<Restaurant> GetAll()
         {
             List<Restaurant> RestaurantsList = new();
-
             using (var customContext = Context.CreateDbContext())
             {
-                //ODetails = customContext.OrderDetails.Where(o => o.OrderId == order.Id).ToList();
-                //status
                 RestaurantsList = customContext.Restaurants.ToList();
             }
             using (var customContext = Context.CreateDbContext())
@@ -61,23 +59,25 @@ namespace FeliveryAPI.Repository
 
         public void Update(Restaurant restaurant)
         {
-            string SecID;
-            string StImg;
+            Restaurant DiffRouteData = new();
             using (var customContext = Context.CreateDbContext())
             {
-                var DiffRouteData = customContext.Restaurants.Find(restaurant.Id);
-                SecID = DiffRouteData.SecurityID;
-                StImg = DiffRouteData.StoreImg;
+                DiffRouteData = customContext.Restaurants.Find(restaurant.Id);
             }
             using (var customContext = Context.CreateDbContext())
             {
                 customContext.Restaurants.Update(restaurant);
-                restaurant.SecurityID = SecID;
-                restaurant.StoreImg = StImg;
+                restaurant.SecurityID = DiffRouteData.SecurityID;
+                restaurant.StoreImg = DiffRouteData.StoreImg;
+                restaurant.Status = DiffRouteData.Status;
+                restaurant.Type = DiffRouteData.Type;
+                restaurant.TotalRatings = DiffRouteData.TotalRatings;
+                restaurant.NumOfRaters = DiffRouteData.NumOfRaters;
                 customContext.SaveChanges();
             }
         }
-        public void Delete(int id)
+
+        public Restaurant Delete(int id)
         {
             if (id == 0)
             {
@@ -86,7 +86,7 @@ namespace FeliveryAPI.Repository
             using var customContext = Context.CreateDbContext();
             if (customContext.Restaurants.Find(id) != null)
             {
-                var RestaurantDetails = customContext.Restaurants.Find(id);
+                Restaurant RestaurantDetails = customContext.Restaurants.Find(id);
                 var UserDetails = customContext.Users.Find(RestaurantDetails.SecurityID);
                 var StoreFolder = _environment.WebRootPath + "\\Uploads\\Product\\" + UserDetails.UserName;
                 customContext.Restaurants.Remove(RestaurantDetails);
@@ -94,6 +94,7 @@ namespace FeliveryAPI.Repository
                 if (Directory.Exists(StoreFolder))
                     Directory.Delete(StoreFolder, true);
                 customContext.SaveChanges();
+                return RestaurantDetails;
             }
             else
             {
@@ -170,7 +171,6 @@ namespace FeliveryAPI.Repository
         }
 
         //Stastics--
-
         public async Task<IEnumerable<Restaurant>> Search(string name)
         {
             using var customContext = Context.CreateDbContext();
@@ -187,21 +187,17 @@ namespace FeliveryAPI.Repository
         public List<Restaurant> PendingStore()
         {
             List<Restaurant> RestaurantsList = new();
-
             using (var customContext = Context.CreateDbContext())
             {
                 RestaurantsList = customContext.Restaurants.Where(s => s.Status == "PendingStore").ToList();
             }
-
             using (var customContext = Context.CreateDbContext())
             {
                 foreach (var rest in RestaurantsList)
                 {
                     rest.IdentityUser = customContext.Users.First(r => r.Id == rest.SecurityID);
-
                 }
             }
-
             return RestaurantsList;
         }
 
@@ -253,15 +249,16 @@ namespace FeliveryAPI.Repository
             return MenuItems;
         }
 
-        /*        public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
-                {
-                    List<Category> Categories;
-                    using (var customContext = Context.CreateDbContext())
-                    {
-                        Categories = await customContext.MenuItems.Where(m => m.RestaurantID == storeID).Select(m => m.Category).ToListAsync();
-                    }
-                    return Categories;
-                }*/
+        public async Task<IEnumerable<MenuItem>> GetOffersBystoreID(int storeID)
+        {
+            List<MenuItem> OfferItems;
+            using (var customContext = Context.CreateDbContext())
+            {
+                OfferItems = await customContext.MenuItems.Include(m => m.Category).Where(m => m.RestaurantID == storeID && m.IsOffer == true).ToListAsync();
+            }
+            return OfferItems;
+        }
+
         public async Task<IEnumerable<Category>> GetCategoriesBystoreID(int storeID)
         {
             List<Category> Categories;
@@ -271,6 +268,7 @@ namespace FeliveryAPI.Repository
             }
             return Categories;
         }
+
         public async Task <int> TotalEarnings(int storeID)
         {
             List<Order> Orders;
@@ -286,7 +284,7 @@ namespace FeliveryAPI.Repository
             return Earnings;
         }
 
-        public async Task<int> PendingOrders(int storeID)
+        public async Task<int> TotalPendingOrders(int storeID)
         {
             List<Order> Orders;
             using (var customContext = Context.CreateDbContext())
@@ -296,7 +294,7 @@ namespace FeliveryAPI.Repository
             return Orders.Count;
         }
 
-        public async Task<int> DeliveredOrders(int storeID)
+        public async Task<int> TotalDeliveredOrders(int storeID)
         {
             List<Order> Orders;
             using (var customContext = Context.CreateDbContext())
@@ -315,7 +313,6 @@ namespace FeliveryAPI.Repository
         }
 
         //Middle Functions--
-
         public void Insert(Restaurant restaurant)
         {
             using var customContext = Context.CreateDbContext();

@@ -14,12 +14,14 @@ namespace FeliveryAPI.Controllers
         {
             OrderRepo = orderRepo;
         }
+
         [HttpGet]
         public ActionResult<List<Order>> GetOrders()
         {
 
             return OrderRepo.GetAll();
         }
+
         [HttpGet("{id}")]
         public ActionResult<Order> GetById(int id)
         {
@@ -27,17 +29,12 @@ namespace FeliveryAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<Order> Delete(int id)
         {
-            Order order = OrderRepo.GetDetails(id);
-
-            if (order == null)
-            {
-                return NotFound();
-            }
-            OrderRepo.Delete(id);
-            return Ok(order);
+            Order OrderData = OrderRepo.Delete(id);
+            return Ok(OrderData);
         }
+
         [HttpPut]
         public ActionResult Put( Order order)
         {

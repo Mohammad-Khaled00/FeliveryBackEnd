@@ -25,10 +25,10 @@ namespace FeliveryAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public ActionResult<Customer> Delete(int id)
         {
-            CustomerRepo.Delete(id);
-            return Ok("Customer Deleted Successfully");
+            Customer CustomerData = CustomerRepo.Delete(id);
+            return Ok(CustomerData);
         }
         [HttpPut]
         public ActionResult Put(Customer customer)

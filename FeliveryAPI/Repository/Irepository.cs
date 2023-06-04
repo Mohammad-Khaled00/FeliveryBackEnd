@@ -6,6 +6,6 @@
         public T? GetDetails(int id);
         public void Insert(T t);
         public void Update(T entity);
-        public void Delete(int id);
+        public T Delete(int id);
     }
 }
