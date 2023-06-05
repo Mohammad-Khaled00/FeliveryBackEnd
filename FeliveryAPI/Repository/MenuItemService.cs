@@ -18,9 +18,12 @@ namespace FeliveryAPI.Repository
         public List<MenuItem> GetAll()
         {
             List<MenuItem> MenuItemList = new();
+            List<Restaurant> restlist = new();
             using (var customContext = Context.CreateDbContext())
             {
-                MenuItemList = customContext.MenuItems.ToList();
+                //restlist = customContext.Restaurants.Where(m => m.Status == "ApprovedStore").ToList();
+
+                MenuItemList = customContext.MenuItems.Where(m => m.Restaurant.Status == "ApprovedStore").ToList();
             }
             using (var customContext = Context.CreateDbContext())
             {

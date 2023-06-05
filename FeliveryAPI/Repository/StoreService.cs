@@ -31,7 +31,7 @@ namespace FeliveryAPI.Repository
             List<Restaurant> RestaurantsList = new();
             using (var customContext = Context.CreateDbContext())
             {
-                RestaurantsList = customContext.Restaurants.ToList();
+                RestaurantsList = customContext.Restaurants.Where(s => s.Status == "ApprovedStore").ToList();
             }
             using (var customContext = Context.CreateDbContext())
             {
