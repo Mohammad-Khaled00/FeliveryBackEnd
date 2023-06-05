@@ -32,9 +32,11 @@ namespace FeliveryAPI.Repository
         {
             using var customContext = Context.CreateDbContext();
             var DetailsList = customContext.OrderDetails.Where(o => o.OrderId == id).ToList();
-            var order = customContext.Orders.Find(id);
+            Order order = customContext.Orders.Find(id);
             foreach (var Detail in DetailsList)
             {
+                //var x = customContext.MenuItems.Where(m => m.Id == Detail.MenuItemID).Select(m => m.Name).First();
+                Detail.MenuItem = customContext.MenuItems.Where(m => m.Id == Detail.MenuItemID).First();
                 order.Details.Add(Detail);
             }
                 order.Restaurant = customContext.Restaurants.First(r => r.Id == order.RestaurantID);

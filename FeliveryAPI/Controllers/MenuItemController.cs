@@ -70,10 +70,10 @@ namespace FeliveryAPI.Controllers
         }
 
         //Upload Images
-        [HttpPost("uploadImage/{storename}/{ItemName}")]
-        public ActionResult UploadImage(IFormFile? file, string storename, string ItemName)
+        [HttpPost("uploadImage/{StoreId}/{ItemName}")]
+        public ActionResult UploadImage(IFormFile? file, int StoreId, string ItemName)
         {
-            var Results = MenuItemRepo.UploadImage(file, storename, ItemName);
+            var Results = MenuItemRepo.UploadImage(file, StoreId, ItemName);
             return Ok(Results);
         }
 
