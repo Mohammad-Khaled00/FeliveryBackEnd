@@ -13,5 +13,6 @@ namespace FeliveryAPI.Repository
         public Task<int> TotalPendingOrders(int storeID);
         public Task<int> TotalDeliveredOrders(int storeID);
         public void DoneOrder(int orderID);
+        public void SetRate(int rate, int storeId);
     }
 }

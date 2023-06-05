@@ -116,6 +116,8 @@ namespace FeliveryAPI.Repository
                 }
                 Data.Restaurant.SecurityID = res.Id;
                 Data.Restaurant.Status = res.Roles[0];
+                Data.Restaurant.NumOfRaters = 0;
+                Data.Restaurant.TotalRatings = 0;
                 Insert(Data.Restaurant);
                 transaction.Complete();
                 return new AuthModel
@@ -312,6 +314,17 @@ namespace FeliveryAPI.Repository
             customContext.SaveChanges();
         }
 
+        public void SetRate(int rate, int Storeid)
+        {
+            using var customContext = Context.CreateDbContext();
+            var store = customContext.Restaurants.Where(r => r.Id == Storeid).First();
+            int totalRating = store.TotalRatings + rate;
+            int numOfRates = store.NumOfRaters +1;
+            store.TotalRatings = totalRating;
+            store.NumOfRaters = numOfRates;
+            customContext.SaveChanges();
+        }
+
         //Middle Functions--
         public void Insert(Restaurant restaurant)
         {
@@ -319,6 +332,7 @@ namespace FeliveryAPI.Repository
             customContext.Restaurants.Add(restaurant);
             customContext.SaveChanges();
         }
+
         public async Task<AuthModel> RegisterAsync(RegisterModel model)
         {
             model.Username = model.Username.Replace(" ", "-");

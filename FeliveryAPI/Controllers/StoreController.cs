@@ -138,7 +138,13 @@ namespace FeliveryAPI.Controllers
         public ActionResult DoneOrder(int orderID)
         {
             StoreRepo.DoneOrder(orderID);
-            //"Order Is Done"
+            return Ok();
+        }
+
+        [HttpPut("SetRating/{storeID}/{rate}")]
+        public ActionResult SetRate(int rate, int storeID)
+        {
+            StoreRepo.SetRate(rate, storeID);
             return Ok();
         }
 
