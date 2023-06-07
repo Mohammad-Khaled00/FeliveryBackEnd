@@ -1,37 +1,73 @@
-﻿using FeliveryAPI.Models;
+﻿using FeliveryAPI.Data;
+using FeliveryAPI.Migrations;
+using FeliveryAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FeliveryAPI.Repository
 {
     public class ReviewService : IFeedBackSercivce<Review>
     {
-        public void Delete(int id)
+        public IDbContextFactory<ElDbContext> Context { get; }
+
+        public ReviewService(IDbContextFactory<ElDbContext> context)
         {
-            throw new NotImplementedException();
+            Context = context;
         }
 
         public List<Review> GetAll()
         {
-            throw new NotImplementedException();
+            using var customContext = Context.CreateDbContext();
+            List<Review> FeedBackList = customContext.Review.ToList();
+            return FeedBackList;
         }
-
-        public Task<IEnumerable<Review>> GetBycustomerID(int customerID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Review>> GetBystoreID(int storeID)
-        {
-            throw new NotImplementedException();
-        }
-
         public Review? GetDetails(int id)
         {
-            throw new NotImplementedException();
+            using var customContext = Context.CreateDbContext();
+            Review FeedBackDetails = customContext.Review.Find(id);
+            return FeedBackDetails;
         }
 
-        public void Insert(Review t)
+        public async Task<IEnumerable<Review>> GetBycustomerID(int customerID)
         {
-            throw new NotImplementedException();
+            List<Review> Feedback;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Feedback = await customContext.Review.Where(m => m.CustomerID == customerID).ToListAsync();
+            }
+            return Feedback;
+        }
+
+        public async Task<IEnumerable<Review>> GetBystoreID(int storeID)
+        {
+            List<Review> Feedback;
+            using (var customContext = Context.CreateDbContext())
+            {
+                Feedback = await customContext.Review.Where(m => m.RestaurantID == storeID).ToListAsync();
+            }
+            return Feedback;
+        }
+
+        public void Insert(Review Feedback)
+        {
+            using var customContext = Context.CreateDbContext();
+            customContext.Review.Add(Feedback);
+            customContext.SaveChanges();
+        }
+
+        public Review Delete(int id)
+        {
+            using var customContext = Context.CreateDbContext();
+            if (customContext.Review.Find(id) != null)
+            {
+                Review Feedback = customContext.Review.Find(id);
+                customContext.Review.Remove(Feedback);
+                customContext.SaveChanges();
+                return Feedback;
+            }
+            else
+            {
+                throw new Exception("Feedback Not Found");
+            }
         }
     }
 }
